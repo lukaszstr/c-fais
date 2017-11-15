@@ -1,12 +1,14 @@
 /* Łukasz Strzelec */
 # include <stdio.h>
-# include 
+# include <math.h>
+
 double f (double x); /* prototyp */
 double mzero (double xl, double xp, double eps, int metoda, int kroki)
-{
+{ /* w ten sposob nie da sie wyciagnac liczby krokow */
 double xm, fm, fl, fp;
 /* do tej pory są ponoć 2 błędy */
-fl=f(xl); fp=f(xp);
+fl=f(xl); 
+fp=f(xp);
 kroki = 0;
 if (fl * fp == 0) 
 	{

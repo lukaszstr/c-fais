@@ -1,7 +1,7 @@
 /* Łukasz Strzelec */
 # include <stdio.h>
 # include <stdlib.h>
-double fibonacci (int n)
+int fibonacci (int n)
 {
 if (n<=2)
 	{
@@ -21,6 +21,6 @@ if (n<0)
 	{ printf("n ma być liczbą dodatnią!");
 	 return 2;
 	}
-printf("n=%i \n F(n)=%lf \n", n, fibonacci(n));
+printf("n=%i \n F(n)=%d \n", n, fibonacci(n));
 return 0;
 }

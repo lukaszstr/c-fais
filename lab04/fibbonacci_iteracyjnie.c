@@ -11,19 +11,23 @@ if (argc<2)
 	}
 n = atoi(argv[1]);
 if (n<0)
-	{ printf("n ma być liczbą dodatnią!");
+	{ printf("n ma być liczbą dodatnią!\n");
 	 return 2;
 	}
-if (n<2)
+else if (n<=2)
 	{
 	printf("1\n");
-  }
-for (i=1; i<n; i++)
-{
+ 	}
+else 
+	{
+	for (i=2; i<n; i++)
+	{
 	fib = f1+f2;
 	f1=f2;
-}
-printf("n=%i \n F(n)=%lf \n", n, fib);
+	f2=fib;
+	printf("F(%d)=%lf\n", i, fib);
+    }
+	}
 return 0;
 }
 
