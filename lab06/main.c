@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-double mzero (double xl, double xp, double eps, int metoda, int kroki);
+double mzero (double xl, double xp, double eps, int metoda, int *kroki);
 int main (int wybor, char ** argv)
 {
   if (wybor < 2) {printf("Nie wybrano metody poszukiwania miejsca zerowego.\nPodaj argument wywołania\n 0 - metoda siecznych \n 1 - metoda stycznych\n");
@@ -12,7 +12,7 @@ int main (int wybor, char ** argv)
 char u_xl[10], u_xp[10], u_eps[10]; /* stringi zachowujące input użytkownika */
 double xl, xp, eps;
 char *err_xl, *err_xp, *err_eps; /*zmienne pomocnicze, pozwalające wykryć błąd */
-int metoda, kroki = 0;
+int metoda, kroki;
     printf("Szukacz miejsc zerowych funkcji\n");
     metoda = atoi(argv[1]);
       if (metoda == 0) {printf("Wybrano metodę siecznych \n");}
@@ -26,12 +26,13 @@ int metoda, kroki = 0;
     xl = strtod(u_xl, &err_xl);
     xp = strtod(u_xp, &err_xp);
     eps = strtod(u_eps, &err_eps);
-    printf("xl=%g \txp=%g \teps=%g \n", xl, xp, eps);
+    printf("\n\nxl=%g \txp=%g \teps=%g \n", xl, xp, eps);
     if (!(err_xl[0] == 0 && err_xp[0] == 0 && err_eps[0] == 0))
         {   printf("\t Konwersja do liczb nie powiodla sie \n\tPopelniono blad przy podawaniu argumentow\n\tWpisz prawidlowa liczbe przy kazdym zapytaniu o wartosc zmiennej!\n");
         }
         else
-        {printf("Miejsce zerowe:\t%lf\nLiczba kroków:%d\n\n", mzero(xl, xp, eps, metoda, kroki), kroki);
-    }}
+        {printf("\nMiejsce zerowe dla:\tx_0 = %g\n", mzero(xl, xp, eps, metoda, &kroki));}
+            printf("\nLiczba kroków:%d\n\n\n", kroki);
+        }
 return 0;
 }

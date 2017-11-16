@@ -4,6 +4,6 @@
 
 double func (double x)
 {
-    /*   x-2e:^(2x^2+5) */
-    return (-1 + 3*x + 5*x*x);
+  return(-x*exp(2*x*x+5));  
+/*  return (-1 + 3*x + 5*x*x); */
 }
