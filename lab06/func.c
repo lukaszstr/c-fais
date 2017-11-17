@@ -4,6 +4,6 @@
 
 double func (double x)
 {
-  return(-x*exp(2*x*x+5));  
+  return(exp(-2*x*x-3)-x);  
 /*  return (-1 + 3*x + 5*x*x); */
 }

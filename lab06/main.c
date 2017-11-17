@@ -6,16 +6,16 @@
 double mzero (double xl, double xp, double eps, int metoda, int *kroki);
 int main (int wybor, char ** argv)
 {
-  if (wybor < 2) {printf("Nie wybrano metody poszukiwania miejsca zerowego.\nPodaj argument wywołania\n 0 - metoda siecznych \n 1 - metoda stycznych\n");
+  if (wybor < 2) {printf("Nie wybrano metody poszukiwania miejsca zerowego.\nPodaj argument wywołania\n 0 - metoda bisekcji \n 1 - metoda stycznych\n");
       return -1;}
   else {
 char u_xl[10], u_xp[10], u_eps[10]; /* stringi zachowujące input użytkownika */
 double xl, xp, eps;
 char *err_xl, *err_xp, *err_eps; /*zmienne pomocnicze, pozwalające wykryć błąd */
 int metoda, kroki;
-    printf("Szukacz miejsc zerowych funkcji\n");
+    printf("\nSzukacz miejsc zerowych funkcji\n");
     metoda = atoi(argv[1]);
-      if (metoda == 0) {printf("Wybrano metodę siecznych \n");}
+      if (metoda == 0) {printf("Wybrano metodę bisekcji \n");}
       else {printf("Wybrano metodę stycznych \n");}
     printf("Podaj lewy zakres:\t");
     scanf("%s", u_xl);

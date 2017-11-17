@@ -1,14 +1,14 @@
 /* Łukasz Strzelec */
 # include <stdio.h>
 # include <math.h>
+# include "func.h"
 
-double func (double x); /* prototyp */
-double mzero (double xl, double xp, double eps, int metoda, int *kroki)
-{ /* w ten sposob nie da sie wyciagnac liczby krokow */
+double mzero (double xl, double xp, double eps, int metoda, int *kroki) 
+{
 double xm, fm, fl, fp;
-/* do tej pory są ponoć 2 błędy */
 fl = func(xl);
 fp = func(xp);
+printf("\n\t Wartosci funkcji:\nF[xl]=%lf\t\tF[xp]=%lf", fl, fp);
 (*kroki)=0;
 if (fl * fp == 0)
 	{
@@ -24,7 +24,7 @@ if (fl * fp == 0)
 if (fl * fp > 0)
 	{
 	 (*kroki) = -1;
-	 printf("\nIloczyn wartości funkjci dla argumentów xl, xp jest dodatni \nW tym przedziale funkcja nie ma miejsc zerowych, albo ma ich parzystą ilość\n Wybierz inny zakres\n");
+	 printf("\nIloczyn wartości funkcji dla argumentów xl, xp jest dodatni \nW tym przedziale funkcja nie ma miejsc zerowych, albo ma ich parzystą ilość\n Wybierz inny zakres\n");
      return xp;
 	}
 else	{
@@ -32,12 +32,12 @@ else	{
 		if (metoda == 0)
 			{
 			xm = 0.5 * (xl + xp);
-		    (*kroki)=(*kroki) + 1;
+		    	(*kroki)++;
             }
     		else
 			{
 			xm = (fp * xl - fl * xp)/(fp - fl);
-			(*kroki)=(*kroki)+1;
+			(*kroki)++;
 			}
     	fm = func(xm);
     	if (fm == 0) { return xm; }
