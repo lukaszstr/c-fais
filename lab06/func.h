@@ -1,1 +1,1 @@
-double func (double x);
+float func (float x);

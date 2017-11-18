@@ -3,9 +3,9 @@
 # include <math.h>
 # include "func.h"
 
-double mzero (double xl, double xp, double eps, int metoda, int *kroki) 
+float mzero (float xl, float xp, float eps, int metoda, int *kroki) 
 {
-double xm, fm, fl, fp;
+float xm, fm, fl, fp;
 fl = func(xl);
 fp = func(xp);
 printf("\n\t Wartosci funkcji:\nF[xl]=%g\t\tF[xp]=%g\n", fl, fp);
