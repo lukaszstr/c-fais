@@ -31,8 +31,10 @@ int metoda, kroki;
         {   printf("\t Konwersja do liczb nie powiodla sie \n\tPopelniono blad przy podawaniu argumentow\n\tWpisz prawidlowa liczbe przy kazdym zapytaniu o wartosc zmiennej!\n");
         }
         else
-        {printf("\nMiejsce zerowe dla:\tx_0 = %g\n", mzero(xl, xp, eps, metoda, &kroki));}
-            printf("\nLiczba kroków:%d\n\n\n", kroki);
+        {printf("\n\nMiejsce zerowe dla:\tx_0 = %g\n", mzero(xl, xp, eps, metoda, &kroki));
+	 printf("\nLiczba kroków:%d\n\n\n", kroki);	
+	}
+            
         }
 return 0;
 }

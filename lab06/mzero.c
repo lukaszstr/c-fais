@@ -8,7 +8,7 @@ double mzero (double xl, double xp, double eps, int metoda, int *kroki)
 double xm, fm, fl, fp;
 fl = func(xl);
 fp = func(xp);
-printf("\n\t Wartosci funkcji:\nF[xl]=%lf\t\tF[xp]=%lf", fl, fp);
+printf("\n\t Wartosci funkcji:\nF[xl]=%g\t\tF[xp]=%g\n", fl, fp);
 (*kroki)=0;
 if (fl * fp == 0)
 	{
@@ -45,5 +45,7 @@ else	{
     	else { xp = xm; fp = fm; }
 	}while (fabs(fm) > eps && fabs ((xp-xl) / xm) > eps);
 }
+fm = func(xm);
+printf("\n\t Wartosc funkcji w x0:\nF[x0]=%g\n", fm);
 return xm;
 }
