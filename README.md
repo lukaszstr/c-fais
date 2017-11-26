@@ -1,7 +1,31 @@
 # c-fais
-Repository with my works for laboratories 
+Repository with my works for laboratories.
+
+unikać nadmiaru w plikach nagłówkowych
 
 # Dziś
+
+bitowe.h
+program głownu pobiera znak, wypisuje wszystkie jego bity używając biblioteki
+
+Funkcje:
+	w n-tym miejscu ustawić 0
+	--||-- 1
+	bierze w ntym i zmienia na przeciwny
+
+W domu:
+	Wsyztskie te funkcje korzystają z maski, oraz są (1?) linijkowe.
+-- kilka różnych znaków, duże, małe, cyfry, zn. specjalne, (zgodność z ASCI)
+-- kilka liczb całkowitych: duże, małe, dodatnie, ujemne.
+-- kilka liczb rzeczywsitych
+
+Objekt UNIA
+	
+
+Zmienić kierunki maski. najpierw maska=(1<<n);
+				return >>n
+
+# Ostatnio
 0 - metoda bisekcji
 1 - metoda siecznych
 
