@@ -3,7 +3,7 @@ Repository with my works for laboratories.
 
 unikać nadmiaru w plikach nagłówkowych
 
-# Dziś
+# 23.11.2017
 
 bitowe.h
 program głownu pobiera znak, wypisuje wszystkie jego bity używając biblioteki
