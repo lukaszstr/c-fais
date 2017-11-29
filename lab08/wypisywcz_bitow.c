@@ -5,8 +5,7 @@
 # include <stdlib.h>
 
 int main (int wybor, char ** argv) {
-int i,j,k,e;
-int tablica[32];
+int i,j,k,e; /* i,j - zmienne pomocnicze do pętli. k - zmienna do wyboru działania programu, e - zmienna do odpowiedniego umiejscowienia wartości bitu w tabeli */
 if (wybor < 2)
 {
        printf("Error \nPodaj (jako argumenty wywolania programu) czego bity chcesz wypisac:\n 0 -- znak(ASCII)\n 1 -- liczba całkowita\n 2 -- liczba typu float\n 3 -- liczba typu double \n");
@@ -14,6 +13,7 @@ return -1;
 }
 else {
 k = atoi(argv[1]);
+int tablica[32];
 union u {char z; int i; float f; double d;} u;
 unsigned char *wsk_bajtu ;
 wsk_bajtu = (unsigned char *) &u.i ;
