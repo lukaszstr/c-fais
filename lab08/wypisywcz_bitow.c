@@ -22,10 +22,10 @@ wsk_bajtu = (unsigned char *) &u.i ;
  {
      printf("Wpisz jakiś znak:\t");
     scanf("%c", &u.z);
-    printf("Wprowadzono:\t%c\n", u.z);
+    printf("Wprowadzono:\t%c\n\t", u.z);
     for (i = 7; i >= 0; i--)
     {
-              printf(" %d", get_bit(u.z,i));
+              printf("%d", get_bit(u.z,i));
     }
 }
 else if(k == 1)
@@ -44,6 +44,10 @@ else if(k == 1)
   		}
 	*wsk_bajtu++;
 	}
+for (i=31; i >= 0; i--) 
+{
+	printf("%d", tablica[i]);
+}
 }
 else if (k == 2)
 {
@@ -54,7 +58,7 @@ else if (k == 2)
     b = &u.f;  */
     for (i=31; i>=0; i--)
     {
-        printf("%f", get_float_bit(u.f, i));
+        printf("%d", get_bit(u.f, i));
     }
 }
 else if (k == 3)
@@ -68,12 +72,6 @@ else
     printf("Nieprawidlowy wybor\n");
     return -1;
 }
-}
-printf("\n");
-for (i=31; i >= 0; i--) 
-{
-	printf("%d", tablica[i]);
-	/* printf("%d : %d\t", i, tablica[i]); */
 }
 printf("\n");
 return 0;
