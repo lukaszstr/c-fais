@@ -16,7 +16,7 @@ else
 {
 int i,j,e,k,z; /* i,j - zmienne pomocnicze do pętli. k - zmienna do wyboru działania programu, e - zmienna do odpowiedniego umiejscowienia wartości bitu w tabeli */
 k = atoi(argv[1]);
-int tablica[32];	
+int tablica[64];	
 union u {char z; int i; float f; double d;} u;
 if (k == 0) 
 {
