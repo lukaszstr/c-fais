@@ -3,6 +3,10 @@ Repository with my works for laboratories.
 
 unikać nadmiaru w plikach nagłówkowych
 
+# 07.11.2017
+
+Wskaźniki też są dla ludzi. 
+
 # 23.11.2017
 
 bitowe.h
