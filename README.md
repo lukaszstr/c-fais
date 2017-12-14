@@ -3,8 +3,31 @@ Repository with my works for laboratories.
 
 unikać nadmiaru w plikach nagłówkowych
 
-# 07.11.2017
+# 14.12.2017
+## Lab 10
+Imię Nazwisko Ocena
+Nazwisko Imię: lista ocen (//tak jak były wpisane) i średnia z dwiema cyframi po przecinku
+5,25 >= ocena >= 2
+Jeśli ocena się nie podoba to raportujemy na stdout strumień numer 2. Podobnie z tym jak ocen jest inna ilość etc. 
+Nie narażamy się na próby korek błędów. 
 
+Struktura Danych. Grupa to prosta macierz, wektor defacto. 
+//Imię i nazwisko to stringi, oceny w sumie też, bo nie opłaca się na konwertować bo stracimy informację jak to wygląda. / Czyli student to ciąg znaków imienia, string nazwiska, macierz jednowektorowa? jego ocen, oraz liczba //
+Struktura. 
+
+Na koniec średnia grupy. 
+
+Algorytm na otwarcie pliku:
+Program ma wczytywać plik(i) , a jak nie da rady to przerzucić na std error. 
+Wczytuje dane i pr
+
+Macierz ma 30 linii (studentów?)
+
+int x[5] -- wskaźnik do macierzy?
+Do przepisania 1 ciągu znaków na inny ciąg znaków służy specjalna funkcja.
+
+# 07.11.2017
+Lab 08
 Wskaźniki też są dla ludzi. 
 
 # 23.11.2017
