@@ -3,6 +3,49 @@ Repository with my works for laboratories.
 
 unikać nadmiaru w plikach nagłówkowych
 
+# 21.12.2017
+Plik danych imię nazwisko ocena. Pisane niechlujnie. Ocena to :
+* albo liczba całkowita <2,5>
+* albo liczba rzeczyiwsta <1,75;5,25>
+* liczba całkowita ze znakiem (+4 3- itp)
+
+Przetwarzamy te pliki w tym sensie, że z każdego z p[lików gromadzę informację o ocenach każdego studenta, ogarniam alfabetycznie liczbę studentów, na końcu jeszcze średnia grupy. 
+Cały main jest wielką pętlą po argumentach. 
+
+main
+	{pętla po arhumentach
+		wczytuje pliki po linii
+		}
+
+
+FILE = fopen( argv[i], "r");
+// while (!feof(FILE)) {
+feof wypisuje 1 jak napotka koniec pliku. Feof sprawdza co będzie potem //
+
+	{
+	cuś?
+	} until (feof(FILE));
+
+qsort(grupa, 
+// argumenty qsort macierz gromadząca studentów
+
+Napis to macierz znakowa. Czyli jakieś miejsca w pamięci, gdzie jest cokolwiek. Mój napis ma 3 znaki - kot. Czyli ma przypisane 4 wartości, ostatni jest końcem stringu. To jest 0. 
+funkcja strlend? co potrafi wyczytać ile znaków jest przed końcem stringu. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # 14.12.2017
 ## Lab 10
 Imię Nazwisko Ocena
@@ -25,6 +68,8 @@ Macierz ma 30 linii (studentów?)
 
 int x[5] -- wskaźnik do macierzy?
 Do przepisania 1 ciągu znaków na inny ciąg znaków służy specjalna funkcja.
+strcp / czy strcpy?
+
 
 # 07.11.2017
 Lab 08
