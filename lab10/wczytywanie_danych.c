@@ -7,7 +7,7 @@
 
 struct student { char imie [30]; char nazwisko [32]; char ocena [30][4]; int liczba_ocen;} student;
 
-int funkcja_porownujaca (student s1, student s2) 
+int funkcja_porownujaca (char student s1, char student s2)
 { int i; i = strcmp(s1.nazwisko, s2.nazwisko);
 if (!i) return 1;
 return strcmp(s1.imie, s2.imie)
@@ -35,7 +35,8 @@ return 1;
 }
 else {
  do {
-	fread(
+	 fscanf(plik, "%s, %s, %s", student.imie, student.nazwisko, student.ocena);
+ 	 printf(" %s\n %s\n %s\n", student.imie, student.nazwisko, student.ocena);
     }
 while (feof(FILE));
 
