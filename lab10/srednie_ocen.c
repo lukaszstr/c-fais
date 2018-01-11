@@ -5,7 +5,7 @@
 # include <string.h>
 # include <errno.h>
 
-/* Struktura studenta i bufor do normalizacji*/
+/* Struktura studenta, bufor do normalizacji, struktura do zerowania studenta pomiędzy plikami*/
 struct student { char imie [30]; char nazwisko [32]; char ocena [30][4]; int liczba_ocen;} student;
 struct student grupa[30];
 struct student zeruj = {0};
@@ -41,15 +41,15 @@ return strncmp(student_s1->nazwisko, student_s2->nazwisko, 4);
 /* Konwersja oceny na typ double. Sprawdź czy jest znak + albo minus */
 double konwersja_oceny (const char *ocena_x) {
 	char *reszta_z_konwersji;
-	double plus_minus;
 	if(strchr(ocena_x, '+')) {
-		plus_minus=0.25;
+		/* printf("\n\n\t ocena= %f \n", (strtod(ocena_x, &reszta_z_konwersji)+0.25)); */
+		return ( (strtod(ocena_x, &reszta_z_konwersji)+0.25));
 		}
 	if (strchr(ocena_x, '-')) {
-		plus_minus=-0.25;
+		return ( (strtod(ocena_x, &reszta_z_konwersji)-0.25));
+		/* printf("\n\n\t ocena= %f \n", (strtod(ocena_x, &reszta_z_konwersji)+0.25)); */
 		}
-return ( strtod(ocena_x, &reszta_z_konwersji) + plus_minus);
-/* plus_minus =0; */
+		return  (strtod(ocena_x, &reszta_z_konwersji) );
 }
 
 
@@ -71,7 +71,7 @@ for (iterator_plikow=1; iterator_plikow<argc; iterator_plikow++)
 	printf("argc = %d \t argv[i]=%s\n", argc, argv[iterator_plikow]);
 FILE *plik;
 plik = fopen(argv[iterator_plikow], "r");
-			printf("Sprawdzam plik %s\n", argv[iterator_plikow]);
+			printf("Przetwarzam plik: %s\n", argv[iterator_plikow]);
 /* sprawdz czy mozesz otworzyc plik */
 	if (!plik)
    {
@@ -82,7 +82,7 @@ plik = fopen(argv[iterator_plikow], "r");
 	else {
   	while (ino != EOF)
     {
-			printf("Wczytuje dane z pliku %s\n", argv[iterator_plikow]);
+			/*  printf("Wczytuje dane z pliku %s\n", argv[iterator_plikow]);		*/
       ino = fscanf(plik, "%s %s %s\n", student.imie, student.nazwisko, student.ocena[1]);
 /*sprawdz czy dana linia zawiera komplet danych */
       if (ino < 3) {
@@ -96,7 +96,7 @@ plik = fopen(argv[iterator_plikow], "r");
 				int szukacz_studenta = 0;
 				while (szukacz_studenta < liczba_studentow ) {
 					if (strcmp(grupa[szukacz_studenta].imie, student.imie)) {
-						fprintf(stdout, "To nie ten student\n");
+						/*  fprintf(stdout, "To nie ten student\n");  	*/
 						szukacz_studenta += 1;
 					}
 					else {
@@ -109,7 +109,7 @@ plik = fopen(argv[iterator_plikow], "r");
 						}
 /* Student ma to samo imię ale inne nazwisko */
 						else {
-							fprintf(stdout, "Student ma to samo imie, ale inne nazwisko\n");
+					/*		fprintf(stdout, "Student ma to samo imie, ale inne nazwisko\n"); */
 							szukacz_studenta += 1;
 						}
 					}
@@ -135,11 +135,22 @@ plik = fopen(argv[iterator_plikow], "r");
 /*Sortowanie i Wyświetlanie tabeli */
 qsort(grupa, liczba_studentow, sizeof(student), compare);
 fprintf(stdout, "Tabelka dla pliku: %s\n", argv[iterator_plikow] );
-fprintf(stdout, "Nazwisko:\t\tImię:\t\tLista ocen:\tŚrednia ocen:\n");
+fprintf(stdout, "Nazwisko:      \tImię:          \tLista ocen:    \tŚrednia ocen:\n");
 for (i=(0+licznik_powtarzajacych); i< liczba_studentow; i++) {
-/*  double
-	double srednia_studenta = */
-	fprintf(stdout, "%15s\t\t%15s\t\t%12s\t%.2f\n",grupa[i].nazwisko, grupa[i].imie, grupa[i].ocena, oceny_grupy[i]);
+	double suma;
+	fprintf(stdout, "%-15s\t%-15s\t",grupa[i].nazwisko, grupa[i].imie);
+	for (j=0; j<grupa[i].liczba_ocen; j++) {
+		fprintf(stdout, " %-s ", grupa[i].ocena[j]);
+	/*	printf("\nkonwersja oceny: %f z oceny %s \n", konwersja_oceny(grupa[i].ocena[j]), grupa[i].ocena[j]);
+		printf("\nstrtod: %d\n",strtod(grupa[i].ocena[j], &suma)); */
+		if (grupa[i].liczba_ocen == 1) {
+			printf("\t");
+			}
+	suma += konwersja_oceny(grupa[i].ocena[j]);
+	}
+	fprintf(stdout, "\t<%3.2f>\n", suma/grupa[i].liczba_ocen);
+	fprintf(stdout, "liczba ocen: %d\t suma: %f\t\n ", grupa[i].liczba_ocen, suma);
+	suma = 0;
 }
   fclose(plik);
 	liczba_studentow = 0; licznik_student =0; licznik_powtarzajacych = 0; liczba_ocen=0;
