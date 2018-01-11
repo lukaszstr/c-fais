@@ -42,14 +42,12 @@ return strncmp(student_s1->nazwisko, student_s2->nazwisko, 4);
 double konwersja_oceny (const char *ocena_x) {
 	char *reszta_z_konwersji;
 	if(strchr(ocena_x, '+')) {
-		/* printf("\n\n\t ocena= %f \n", (strtod(ocena_x, &reszta_z_konwersji)+0.25)); */
 		return ( (strtod(ocena_x, &reszta_z_konwersji)+0.25));
 		}
 	if (strchr(ocena_x, '-')) {
 		return ( (strtod(ocena_x, &reszta_z_konwersji)-0.25));
-		/* printf("\n\n\t ocena= %f \n", (strtod(ocena_x, &reszta_z_konwersji)+0.25)); */
 		}
-		return  (strtod(ocena_x, &reszta_z_konwersji) );
+		return (strtod(ocena_x, &reszta_z_konwersji));
 }
 
 
@@ -149,7 +147,6 @@ for (i=(0+licznik_powtarzajacych); i< liczba_studentow; i++) {
 	suma += konwersja_oceny(grupa[i].ocena[j]);
 	}
 	fprintf(stdout, "\t<%3.2f>\n", suma/grupa[i].liczba_ocen);
-	fprintf(stdout, "liczba ocen: %d\t suma: %f\t\n ", grupa[i].liczba_ocen, suma);
 	suma = 0;
 }
   fclose(plik);
