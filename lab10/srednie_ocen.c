@@ -113,10 +113,12 @@ plik = fopen(argv[iterator_plikow], "r");
 					}
 				} /* Koniec przeszukiwania struktury szukając studenta */
 
-/* Skopiowanie danych z tymczasowych do struktury grupy zajęciowej */
+/* Skopiowanie danych z tymczasowych do struktury grupy zajęciowej HERE ARE SOME TROUBLES*/
 					strcpy(grupa[licznik_student].imie, student.imie);
 					strcpy(grupa[licznik_student].nazwisko, student.nazwisko);
 					strcpy(grupa[licznik_student].ocena[(grupa[licznik_student].liczba_ocen)], student.ocena[1]);
+					/* Tutaj mamy debugującą linię, która wskazuje, że problem nie jest przy kopiowaniu, tylko przy wyświetlaniu i przekazywaniu do funkcji konwertuj
+					printf("Kopiowana wartość:%s \nSkopiowana wartość: %s\n", student.ocena[1], grupa[licznik_student].ocena[(grupa[licznik_student].liczba_ocen)]); 	*/
 
 /* Koniec przebiegu pętli, zinkrementuj liczniki */
 					grupa[licznik_student].liczba_ocen += 1;
