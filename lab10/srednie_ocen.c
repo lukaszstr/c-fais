@@ -6,7 +6,7 @@
 # include <errno.h>
 
 /* Struktura studenta, bufor do normalizacji, struktura do zerowania studenta pomiędzy plikami*/
-struct student { char imie [30]; char nazwisko [32]; char ocena [30][4]; int liczba_ocen;} student;
+struct student { char imie [30]; char nazwisko [32]; char ocena [30][5]; int liczba_ocen;} student; /* student.ocena musi mieć wymiar 30[5] !bo 3.25 to 4 znaki i potem się coupluje */
 struct student grupa[30];
 struct student zeruj = {0};
 char bufor[32];
@@ -118,7 +118,7 @@ plik = fopen(argv[iterator_plikow], "r");
 					strcpy(grupa[licznik_student].nazwisko, student.nazwisko);
 					strcpy(grupa[licznik_student].ocena[(grupa[licznik_student].liczba_ocen)], student.ocena[1]);
 					/* Tutaj mamy debugującą linię, która wskazuje, że problem nie jest przy kopiowaniu, tylko przy wyświetlaniu i przekazywaniu do funkcji konwertuj
-					printf("Kopiowana wartość:%s \nSkopiowana wartość: %s\n", student.ocena[1], grupa[licznik_student].ocena[(grupa[licznik_student].liczba_ocen)]); 	*/
+					printf("Student: %s \t Kopiowana wartość:%s \tSkopiowana wartość: %s\n", student.nazwisko, student.ocena[1], grupa[licznik_student].ocena[(grupa[licznik_student].liczba_ocen)]); 	 */
 
 /* Koniec przebiegu pętli, zinkrementuj liczniki */
 					grupa[licznik_student].liczba_ocen += 1;
