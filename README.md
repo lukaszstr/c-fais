@@ -27,7 +27,7 @@ feof wypisuje 1 jak napotka koniec pliku. Feof sprawdza co będzie potem //
 	} until (feof(FILE));
 
 qsort(grupa, 
-// argumenty qsort macierz gromadząca studentów
+// argumenty qsort macierz gromadząca studentów, liczba argumentów do posortowania, 
 
 Napis to macierz znakowa. Czyli jakieś miejsca w pamięci, gdzie jest cokolwiek. Mój napis ma 3 znaki - kot. Czyli ma przypisane 4 wartości, ostatni jest końcem stringu. To jest 0. 
 funkcja strlend? co potrafi wyczytać ile znaków jest przed końcem stringu. 
