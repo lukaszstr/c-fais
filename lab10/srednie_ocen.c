@@ -6,11 +6,11 @@
 # include <errno.h>
 
 /* Struktura studenta, bufor do normalizacji, struktura do zerowania studenta pomiędzy plikami*/
-struct student { char imie [30]; char nazwisko [32]; char ocena [30][4]; int liczba_ocen;} student;
+struct student { char imie [30]; char nazwisko [32]; char ocena [30][5]; int liczba_ocen;} student; /* student.ocena musi mieć wymiar 30[5] !bo 3.25 to 4 znaki i potem się coupluje */
 struct student grupa[30];
 struct student zeruj = {0};
 char bufor[32];
-double oceny_grupy[];
+double srednia_grupy;
 
 /*Funkcja normalizująca nazwisko i imię na polski: 1 litera - duża */
 char normalizuj (char bufor [30])	{
@@ -113,10 +113,12 @@ plik = fopen(argv[iterator_plikow], "r");
 					}
 				} /* Koniec przeszukiwania struktury szukając studenta */
 
-/* Skopiowanie danych z tymczasowych do struktury grupy zajęciowej */
+/* Skopiowanie danych z tymczasowych do struktury grupy zajęciowej HERE ARE SOME TROUBLES*/
 					strcpy(grupa[licznik_student].imie, student.imie);
 					strcpy(grupa[licznik_student].nazwisko, student.nazwisko);
 					strcpy(grupa[licznik_student].ocena[(grupa[licznik_student].liczba_ocen)], student.ocena[1]);
+					/* Tutaj mamy debugującą linię, która wskazuje, że problem nie jest przy kopiowaniu, tylko przy wyświetlaniu i przekazywaniu do funkcji konwertuj
+					printf("Student: %s \t Kopiowana wartość:%s \tSkopiowana wartość: %s\n", student.nazwisko, student.ocena[1], grupa[licznik_student].ocena[(grupa[licznik_student].liczba_ocen)]); 	 */
 
 /* Koniec przebiegu pętli, zinkrementuj liczniki */
 					grupa[licznik_student].liczba_ocen += 1;
@@ -132,10 +134,10 @@ plik = fopen(argv[iterator_plikow], "r");
 		}
 /*Sortowanie i Wyświetlanie tabeli */
 qsort(grupa, liczba_studentow, sizeof(student), compare);
-fprintf(stdout, "Tabelka dla pliku: %s\n", argv[iterator_plikow] );
+fprintf(stdout, "\n\nTabelka dla pliku: %s\n", argv[iterator_plikow] );
 fprintf(stdout, "Nazwisko:      \tImię:          \tLista ocen:    \tŚrednia ocen:\n");
 for (i=(0+licznik_powtarzajacych); i< liczba_studentow; i++) {
-	double suma;
+	double suma, liczba_ocen;
 	fprintf(stdout, "%-15s\t%-15s\t",grupa[i].nazwisko, grupa[i].imie);
 	for (j=0; j<grupa[i].liczba_ocen; j++) {
 		fprintf(stdout, " %-s ", grupa[i].ocena[j]);
@@ -144,13 +146,27 @@ for (i=(0+licznik_powtarzajacych); i< liczba_studentow; i++) {
 		if (grupa[i].liczba_ocen == 1) {
 			printf("\t");
 			}
-	suma += konwersja_oceny(grupa[i].ocena[j]);
+			if (konwersja_oceny(grupa[i].ocena[j]) > 5) {
+				fprintf(stderr, "Błąd. Ocena:%s studenta: %s %s Jest większa niż 5\t Pomijam.\n", grupa[i].ocena[j] ,grupa[i].nazwisko, grupa[i].imie);
+				liczba_ocen = -1;
+			}
+			else if (konwersja_oceny(grupa[i].ocena[j]) < 2) {
+				fprintf(stderr, "Błąd. Ocena:%s studenta: %s %s Jest mniejsza niż 2\t Pomijam.\n", grupa[i].ocena[j] ,grupa[i].nazwisko, grupa[i].imie);
+				liczba_ocen = -1;
+			}
+			else if (konwersja_oceny(grupa[i].ocena[j]) == 0) suma += 0;
+			else {
+				suma += konwersja_oceny(grupa[i].ocena[j]);
+			}
 	}
-	fprintf(stdout, "\t<%3.2f>\n", suma/grupa[i].liczba_ocen);
-	suma = 0;
+	liczba_ocen += grupa[i].liczba_ocen;
+	fprintf(stdout, "\t<%3.4f>\n", suma/liczba_ocen);
+	srednia_grupy += (suma/liczba_ocen);
+	suma = 0;	liczba_ocen = 0;
 }
+fprintf(stdout, "\n\tSrednia grupy:%.4f\n\n", srednia_grupy/(liczba_studentow - licznik_powtarzajacych));
   fclose(plik);
-	liczba_studentow = 0; licznik_student =0; licznik_powtarzajacych = 0; liczba_ocen=0;
+	liczba_studentow = 0; licznik_student =0; licznik_powtarzajacych = 0; liczba_ocen=0; srednia_grupy=0;
 }
 
 return 0;
