@@ -34,8 +34,11 @@ srand48(time(NULL));
   }
 }
 else if (mode == 1) {
-  printf("\n");
-
+ srand(time(NULL));
+  for (i=0; i<liczba_losowych; i++) {
+    r = (double)rand()/(double)((unsigned)RAND_MAX + 1);
+    macierz[i] = r;
+    }
 }
 else return -1;
 printf("\n");
@@ -46,8 +49,8 @@ czas_wykonania = (stop - start);
 czas_sec = (long double)(czas_wykonania * 1000000 / (CLOCKS_PER_SEC));
 printf("Czas wykonania sortowania %d-liczb: %ld [microsec]\n", liczba_losowych, czas_sec);
 /* for (i=0; i<liczba_losowych; i++) {
- * printf(" %f ", macierz[i]);
- * }					*/
+  printf(" %f ", macierz[i]);
+  }		*/			
 printf("\n");
 }
 return 0;
