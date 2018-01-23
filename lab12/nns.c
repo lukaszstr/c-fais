@@ -18,10 +18,12 @@ if (argc<3) {
 }
 else {
 int liczba_losowych, przedzialy, mode, i; /* mode - sposób działania programu */
+
 char *error_argv1, *error_argv2, *error_argv3;
 liczba_losowych = strtol(argv[1], &error_argv1, 10 );
-przedzialy =  strtol(argv[2], &error_argv2, 10 );
+przedzialy =  strtod(argv[2], &error_argv2);
 mode = strtol(argv[3], &error_argv3, 10 );
+
 double macierz[liczba_losowych], r;
 clock_t start, stop, czas_wykonania, czas_sec;
 
@@ -50,7 +52,28 @@ czas_sec = (long double)(czas_wykonania * 1000000 / (CLOCKS_PER_SEC));
 printf("Czas wykonania sortowania %d-liczb: %ld [microsec]\n", liczba_losowych, czas_sec);
 /* for (i=0; i<liczba_losowych; i++) {
   printf(" %f ", macierz[i]);
-  }		*/			
+  }				*/
+
+/* Zliczenia */
+int liczba_zliczen[przedzialy];
+for (i=0; i<=przedzialy; i++) {
+  liczba_zliczen[i] = 5;
+  }
+int j;
+i = 0;
+for (j=1; j<=przedzialy; j++) {
+  while (macierz[i] <= ((double) 1/przedzialy) * j) {
+/*    printf("\nprzedzial= %f\n", (double) 1/przedzialy*j ); */
+    liczba_zliczen[j] = liczba_zliczen[j] + 1 ;
+/*    printf("petla while, przebieg %d", i);	*/
+    i++; 
+    }
+  }
+printf("\nLiczba zliczen w przedziale:\n");
+for (i=1; i<przedzialy; i++) {
+  printf(" %d = %d\n", i, liczba_zliczen[i]);
+  }
+
 printf("\n");
 }
 return 0;
