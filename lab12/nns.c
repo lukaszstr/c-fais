@@ -70,9 +70,9 @@ czas_sec = (long double)(czas_wykonania * 1000000 / (CLOCKS_PER_SEC));
 printf("Czas wykonania sortowania %d-liczb: %ld [microsec]\n", liczba_losowych, czas_sec);
 
 /* Próbne wyświetlenia */
- for (i=0; i<liczba_losowych; i++) {
+/* for (i=0; i<liczba_losowych; i++) {
   printf(" %f ", macierz[i]);
-  }
+}										*/
 
 /* Zliczenia */
 /* Wyzeruj tablicę liczby zliczeń */
@@ -85,21 +85,40 @@ for (i=0; i<=(przedzialy +1); i++) {
   i = 0;
   for (j=1; j<=przedzialy; j++) {
     while ((macierz[i] <= ((double) 1/przedzialy) * j) && i<100) {
-    printf("i= %d\tmacierz[i]= %f\tprzedzial= %f\n", i, macierz[i], (double) 1/przedzialy*j );
+/*    printf("i= %d\tmacierz[i]= %f\tprzedzial= %f\n", i, macierz[i], (double) 1/przedzialy*j ); */
       liczba_zliczen[j] = liczba_zliczen[j] + 1 ;
-/*    printf("petla while, przebieg %d", i);	*/
       i++;
     }
   }
 
 /* Wyświetlanie liczby zliczeń w danych przedziałach */
-printf("\nLiczba zliczen w przedziale:\n");
+/* printf("\nLiczba zliczen w przedziale:\n");
 for (i=1; i<=przedzialy; i++) {
   printf(" %d = %d\n", i, liczba_zliczen[i]);
-  }
+}																											*/
+
+/* Histogram */
+/* Znajdż max_zliczen */
+int max_zliczen = 0;
+for (i=0; i<przedzialy; i++) {
+	if (max_zliczen < liczba_zliczen[i]) {
+		max_zliczen = liczba_zliczen[i];
+	}
+}
+/* printf("max_zliczen=%d\nPrzedzial: \n",max_zliczen ); */
+/* Wyświetl histogram */
+for (i=1; i<=przedzialy; i++) {
+	printf("%d:\t", i);
+	int histo_dl = (78*liczba_zliczen[i])/max_zliczen;
+
+	  for (j=0; j<=histo_dl; j++) {
+		  printf("#");
+	  }
+	printf("\n" );
+}
+ } /* koniec else po konwersji */
 
 printf("\n");
-}
-}
+} /* Koniec else po wywolaniu */
 return 0;
 }
