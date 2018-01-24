@@ -84,7 +84,7 @@ for (i=0; i<=(przedzialy +1); i++) {
   int j;
   i = 0;
   for (j=1; j<=przedzialy; j++) {
-    while ((macierz[i] <= ((double) 1/przedzialy) * j) && i<100) {
+    while ((macierz[i] <= ((double) 1/przedzialy) * j) && i<liczba_losowych) {
 /*    printf("i= %d\tmacierz[i]= %f\tprzedzial= %f\n", i, macierz[i], (double) 1/przedzialy*j ); */
       liczba_zliczen[j] = liczba_zliczen[j] + 1 ;
       i++;
@@ -95,7 +95,7 @@ for (i=0; i<=(przedzialy +1); i++) {
 /* printf("\nLiczba zliczen w przedziale:\n");
 for (i=1; i<=przedzialy; i++) {
   printf(" %d = %d\n", i, liczba_zliczen[i]);
-}																											*/
+}			*/
 
 /* Histogram */
 /* Znajdż max_zliczen */
