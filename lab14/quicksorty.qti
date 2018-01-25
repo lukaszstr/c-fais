@@ -1,0 +1,332 @@
+QtiPlot 0.9.8 project file
+<scripting-lang>	muParser
+<windows>	2
+<table>
+Table1	31	3	25.01.2018 10:32
+geometry	0	0	445	716	
+header	n[X]	quciksortsystemowy[Y]	quciSortmine[Y]
+ColWidth	100	100	100	
+<com>
+</com>
+ColType	0;0/13	0;0/13	0;0/13
+ReadOnlyColumn	0	0	0
+HiddenColumn	0	0	0
+Comments				
+WindowLabel		2
+<data>
+0	100	36	27
+1	100	42	30
+2	100	35	30
+4	1000	536	347
+5	1000	389	367
+6	1000	535	404
+8	5000	2322	1984
+9	5000	2727	1742
+10	5000	2608	1808
+12	10000	4391	2746
+13	10000	4924	3206
+14	10000	5261	4112
+16	25000	12350	7680
+17	25000	9242	10475
+18	25000	11472	9049
+20	50000	12327	18984
+21	50000	12939	14604
+22	50000	14413	15029
+24	75000	17572	20152
+25	75000	19374	22784
+26	75000	18954	19335
+28	100000	20011	34019
+29	100000	20204	31847
+30	100000	20833	36554
+</data>
+</table>
+<multiLayer>
+Graph1	1	1	25.01.2018 10:33
+geometry	310	171	1114	733	active
+WindowLabel		2
+Margins	5	5	5	5
+Spacing	5	5
+LayerCanvasSize	400	300
+Alignement	0	0
+<AlignPolicy>0</AlignPolicy>
+<CommonAxes>0</CommonAxes>
+<graph>
+ggeometry	8	8	1088	663
+<PageGeometry>0.00723327	0.0116788	0.983725	0.967883</PageGeometry>
+PlotTitle		#000000	4228
+<Antialiasing>0</Antialiasing>
+<Autoscaling>1</Autoscaling>
+<ScaleFonts>1</ScaleFonts>
+<GridOnTop>0</GridOnTop>
+<MissingDataGap>1</MissingDataGap>
+Background	#ffffff	0
+Margin	0
+Border	0	#000000
+grid	0	0	0	0	#0000ff	0	0.5	#a0a0a4	2	0.4	#0000ff	0	0.5	#a0a0a4	2	0.4	0	0	2	0	0
+EnabledAxes	1	0	1	0	
+AxesTitles	Liczba danych do posortowania (n)	Czas w mikrosekundach [µs]		%(?Y)	
+AxesTitleColors	#000000	#000000	#000000	#000000	
+AxesTitleAlignment	5124	4	5124	4
+AxesTitleDistance	2	-1	2	-1
+InvertedTitle	0	0	0	0
+TitleFont	Overpass	20	75	0	0	0
+ScaleFont0	Overpass	17	75	0	0	0
+ScaleFont1	Overpass	17	75	0	0	0
+ScaleFont2	Overpass	17	75	0	0	0
+ScaleFont3	Overpass	17	75	0	0	0
+AxisFont0	Overpass	17	50	0	0	0
+AxisFont1	Overpass	17	50	0	0	0
+AxisFont2	Overpass	17	50	0	0	0
+AxisFont3	Overpass	17	50	0	0	0
+AxesColors	#000000	#000000	#000000	#000000
+AxesNumberColors	#424c52	#424c52	#424c52	#424c52
+AxesBaseline	0	0	0	0	
+CanvasBackground	#ffffff	0
+curve	Table1_n	Table1_quciSortmine	1	0	#000000	0	1	7	1	#000000	#000000	0	#000000	14	1	2	0	0	30	1
+curve	Table1_n	Table1_quciksortsystemowy	1	0	#ff0000	0	1	7	2	#ff0000	#ff0000	0	#000000	14	1	2	0	0	30	1
+<Function>
+<Type>0</Type>
+<Title>NonLinearFit1</Title>
+<Expression>a*x*log(x)</Expression>
+<Variable>x</Variable>
+<Range>100	100000</Range>
+<Points>100</Points>
+<Log10>1</Log10>
+<Constant>a	0.065426447096539</Constant>
+<Style>0</Style>
+<LineStyle>1</LineStyle>
+<Pen>
+	<Color>#000000</Color>
+	<Style>0</Style>
+	<Width>1.5</Width>
+</Pen>
+<xAxis>2</xAxis>
+<yAxis>0</yAxis>
+<CurveType>0</CurveType>
+<Visible>0</Visible>
+</Function>
+<Function>
+<Type>0</Type>
+<Title>NonLinearFit2</Title>
+<Expression>a*x*log(x)</Expression>
+<Variable>x</Variable>
+<Range>100	100000</Range>
+<Points>100</Points>
+<Log10>1</Log10>
+<Constant>a	0.0475792749613673</Constant>
+<Style>0</Style>
+<LineStyle>1</LineStyle>
+<Pen>
+	<Color>#ff0000</Color>
+	<Style>0</Style>
+	<Width>1</Width>
+</Pen>
+<xAxis>2</xAxis>
+<yAxis>0</yAxis>
+<CurveType>0</CurveType>
+<Visible>0</Visible>
+</Function>
+<Function>
+<Type>0</Type>
+<Title>NonLinearFit3</Title>
+<Expression>a*x*ln(x)</Expression>
+<Variable>x</Variable>
+<Range>100	100000</Range>
+<Points>100</Points>
+<Log10>1</Log10>
+<Constant>a	0.028586553493474</Constant>
+<Style>0</Style>
+<LineStyle>1</LineStyle>
+<Pen>
+	<Color>#000000</Color>
+	<Style>0</Style>
+	<Width>2</Width>
+</Pen>
+<xAxis>2</xAxis>
+<yAxis>0</yAxis>
+<CurveType>0</CurveType>
+<Visible>1</Visible>
+</Function>
+<Function>
+<Type>0</Type>
+<Title>NonLinearFit4</Title>
+<Expression>a*x*ln(x)</Expression>
+<Variable>x</Variable>
+<Range>100	100000</Range>
+<Points>100</Points>
+<Log10>1</Log10>
+<Constant>a	0.021867373916691</Constant>
+<Style>0</Style>
+<LineStyle>1</LineStyle>
+<Pen>
+	<Color>#ff0000</Color>
+	<Style>0</Style>
+	<Width>2</Width>
+</Pen>
+<xAxis>2</xAxis>
+<yAxis>0</yAxis>
+<CurveType>0</CurveType>
+<Visible>1</Visible>
+</Function>
+scale	0	-5000	40000	0	10	5	0	0
+scale	1	-5000	40000	0	10	5	0	0
+scale	2	100	1000000	0	5	5	1	0
+scale	3	100	1000000	0	5	5	1	0
+LabelsFormat	0	6	0	6	0	6	0	6
+AxisType	0	0	0	0	
+MajorTicks	1	1	1	1
+MinorTicks	1	1	1	1
+TicksLength	5	9
+DrawAxesBackbone	1	1	1	1	1
+AxesLineWidth	1
+LabelsRotation	0	0	0	0
+LabelsPrefix				
+LabelsSuffix				
+TickLabelsSpace	4	4	4	4
+ShowTicksPolicy	0	0	0	0
+EnabledTickLabels	1	1	1	1
+<Legend>
+<Frame>1</Frame>
+<Color>#000000</Color>
+<FrameWidth>1</FrameWidth>
+<LineStyle>0</LineStyle>
+<x>105.20847284712</x>
+<y>40161.001788909</y>
+<right>18673.4178227716</right>
+<bottom>25187.8354203936</bottom>
+<attachTo>1</attachTo>
+<onTop>1</onTop>
+<visible>1</visible>
+<Text>
+\l(1)%(1)
+\l(2)%(2)
+\l(5)Fit quicksorta własnej implementacji
+\l(6)Fit quicksorta "bibliotecznego" 
+Fitowana funckja: a*x*ln(x)
+</Text>
+<Font>Overpass	17	50	0	0	0</Font>
+<TextColor>#000000</TextColor>
+<Background>#ffffff</Background>
+<Alpha>0</Alpha>
+<Angle>0</Angle>
+<AutoUpdate>1</AutoUpdate>
+<TeXOutput>0</TeXOutput>
+</Legend>
+<Legend>
+<Frame>1</Frame>
+<Color>#000000</Color>
+<FrameWidth>1</FrameWidth>
+<LineStyle>0</LineStyle>
+<x>83931.508270139</x>
+<y>15769.230769231</y>
+<right>377247.387026807</right>
+<bottom>12549.1949910555</bottom>
+<attachTo>1</attachTo>
+<onTop>1</onTop>
+<visible>1</visible>
+<Text>
+R^2=0.9969
+</Text>
+<Font>Overpass	14	50	0	0	0</Font>
+<TextColor>#ff0000</TextColor>
+<Background>#ffffff</Background>
+<Alpha>0</Alpha>
+<Angle>0</Angle>
+<AutoUpdate>0</AutoUpdate>
+<TeXOutput>0</TeXOutput>
+</Legend>
+<Legend>
+<Frame>1</Frame>
+<Color>#000000</Color>
+<FrameWidth>1</FrameWidth>
+<LineStyle>0</LineStyle>
+<x>129885.65557772</x>
+<y>34364.937388193</y>
+<right>659453.417851081</right>
+<bottom>31144.9016100179</bottom>
+<attachTo>1</attachTo>
+<onTop>1</onTop>
+<visible>1</visible>
+<Text>
+R^2 = 0.9995
+</Text>
+<Font>Overpass	14	50	0	0	0</Font>
+<TextColor>#000000</TextColor>
+<Background>#ffffff</Background>
+<Alpha>0</Alpha>
+<Angle>0</Angle>
+<AutoUpdate>0</AutoUpdate>
+<TeXOutput>0</TeXOutput>
+</Legend>
+</graph>
+<LinkXAxes>0</LinkXAxes>
+<ScaleLayers>1</ScaleLayers>
+</multiLayer>
+<open>1</open>
+<log>
+[25.01.2018 10:35	Plot: ''Graph1'']
+Non-linear Fit of dataset: Table1_quciSortmine, using function: a*x*log(x)
+Weighting Method: No weighting
+Scaled Levenberg-Marquardt algorithm with tolerance = 0.0001
+From x = 1.000000000000000e+02 to x = 1.000000000000000e+05
+a = 6.542644709653921e-02 +/- 1.657788119752047e-03
+--------------------------------------------------------------------------------------
+Chi^2/doF = 3.734273646302965e+06
+R^2 = 0.972677521110076
+Adjusted R^2 = 0.971435590251444
+RMSE (Root Mean Squared Error) = 1,932.42687993698
+RSS (Residual Sum of Squares) = 85,888,293.8649682
+---------------------------------------------------------------------------------------
+Iterations = 2
+Status = success
+---------------------------------------------------------------------------------------
+[25.01.2018 10:36	Plot: ''Graph1'']
+Non-linear Fit of dataset: Table1_quciksortsystemowy, using function: a*x*log(x)
+Weighting Method: No weighting
+Scaled Levenberg-Marquardt algorithm with tolerance = 0.0001
+From x = 1.000000000000000e+02 to x = 1.000000000000000e+05
+a = 4.757927496136732e-02 +/- 2.518782030499609e-03
+--------------------------------------------------------------------------------------
+Chi^2/doF = 8.620436711493034e+06
+R^2 = 0.855808282093088
+Adjusted R^2 = 0.849254113097319
+RMSE (Root Mean Squared Error) = 2,936.05802250109
+RSS (Residual Sum of Squares) = 198,270,044.36434
+---------------------------------------------------------------------------------------
+Iterations = 2
+Status = success
+---------------------------------------------------------------------------------------
+
+[25.01.2018 10:46	Plot: ''Graph1'']
+Non-linear Fit of dataset: Table1_quciSortmine, using function: a*x*ln(x)
+Weighting Method: Statistical
+Scaled Levenberg-Marquardt algorithm with tolerance = 0.0001
+From x = 1.0000000000000e+02 to x = 1.0000000000000e+05
+a = 2.8586553493474e-02 +/- 9.2812121160431e-04
+--------------------------------------------------------------------------------------
+Chi^2/doF = 2.6481784939404e+02
+R^2 = 0.9995304873183
+Adjusted R^2 = 0.9995091458328
+RMSE (Root Mean Squared Error) = 16.27322492298
+RSS (Residual Sum of Squares) = 6,090.810536063
+---------------------------------------------------------------------------------------
+Iterations = 2
+Status = success
+---------------------------------------------------------------------------------------
+[25.01.2018 10:46	Plot: ''Graph1'']
+Non-linear Fit of dataset: Table1_quciksortsystemowy, using function: a*x*ln(x)
+Weighting Method: Statistical
+Scaled Levenberg-Marquardt algorithm with tolerance = 0.0001
+From x = 1.0000000000000e+02 to x = 1.0000000000000e+05
+a = 2.1867373916691e-02 +/- 1.5188023411261e-03
+--------------------------------------------------------------------------------------
+Chi^2/doF = 9.2705508572613e+02
+R^2 = 0.996880718936
+Adjusted R^2 = 0.9967389334331
+RMSE (Root Mean Squared Error) = 30.44757930815
+RSS (Residual Sum of Squares) = 21,322.2669717
+---------------------------------------------------------------------------------------
+Iterations = 2
+Status = cannot reach the specified tolerance in F
+---------------------------------------------------------------------------------------
+</log>
