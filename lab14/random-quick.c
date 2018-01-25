@@ -2,13 +2,13 @@
 #include <stdlib.h>
 #include <time.h>
 
-void quickSort( int[], int, int);
-int podziel( int[], int, int);
+void quickSort( double[], int, int);
+double podziel( double[], int, int);
 
-/* funkcja porównująca dla quicksorta */
+  /* funkcja porównująca dla quicksorta */
 int porownaj (const void *a, const void *b) {
-	int which;
-	which = (*(int*)a - *(int*)b);
+	double which;
+	which = (*(double*)a - *(double*)b);
 	if (which>0) return 1;
 	else if (which == 0) return 0;
 	else return -1;
@@ -36,21 +36,26 @@ int porownaj (const void *a, const void *b) {
   	else {
 
   /* Deklaracja macierzy i czasów wykonania */
-  int macierz[liczba_losowych], r;
+  double macierz[liczba_losowych], r;
   clock_t start, stop, czas_wykonania, czas_sec;
   srand(time(NULL));
 
   /* Generacja macierzy liczb pseudolosowych z użyciem rand */
    for (i=0; i<liczba_losowych; i++) {
-     r = rand()%1000;
+    r = (double)rand()/(double)((unsigned)RAND_MAX + 1);
      macierz[i] = r;
      }
+
+  /* Próbne wyświetlenia */
+  /*  for (i=0; i<liczba_losowych; i++) {
+    printf(" %f ", macierz[i]);
+  }			*/
 
   /* Sortowanie z użyciem qsort systemowy */
   if (mode == 0) {
     /* sortowanie i pomiar czasu */
     start = clock();
-    qsort(macierz, liczba_losowych, sizeof(int), porownaj);
+    qsort(macierz, liczba_losowych, sizeof(double), porownaj);
     stop = clock();
     czas_wykonania = (stop - start);
     czas_sec = (long double)(czas_wykonania * 1000000 / (CLOCKS_PER_SEC));
@@ -68,9 +73,9 @@ int porownaj (const void *a, const void *b) {
   printf("\n");
 
   /* Próbne wyświetlenia */
-  /* for (i=0; i<liczba_losowych; i++) {
+   /* for (i=0; i<liczba_losowych; i++) {
     printf(" %f ", macierz[i]);
-  }										*/
+  }				*/						
 
   /* Zliczenia */
   /* Wyzeruj tablicę liczby zliczeń */
@@ -82,7 +87,7 @@ int porownaj (const void *a, const void *b) {
     int j;
     i = 0;
     for (j=1; j<=przedzialy; j++) {
-      while ((macierz[i] <= (1000/przedzialy) * j) && i<liczba_losowych) {
+      while ((macierz[i] <= ((double) 1/przedzialy) * j) && i<liczba_losowych) {
   /*    printf("i= %d\tmacierz[i]= %f\tprzedzial= %f\n", i, macierz[i], (double) 1/przedzialy*j ); */
         liczba_zliczen[j] = liczba_zliczen[j] + 1 ;
         i++;
@@ -121,20 +126,21 @@ int porownaj (const void *a, const void *b) {
   return 0;
   }
 
-void quickSort( int a[], int l, int r)
+void quickSort( double a[], int l, int r)
 {
    int j;
 
    if( l < r )
    {
-        j = podziel( a, l, r);
+       j = podziel( a, l, r);
        quickSort( a, l, j-1);
        quickSort( a, j+1, r);
    }
 }
 
-int podziel( int a[], int l, int r) {
-   int pivot, i, j, t;
+double podziel( double a[], int l, int r) {
+   double pivot, t;
+   int i, j;
    pivot = a[l];
    i = l; j = r+1;
 
