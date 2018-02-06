@@ -1,14 +1,14 @@
 CC = gcc
-CFLAGS=-Wall -ansi
-LIBS = -lm
+CFLAGS=-Wall -ansi -pedantic
+#LIBS = 
 TEMPDIR   := tempdir
 all:	
 	- mkdir tempdir
-	$(MAKE) $(MFLAGS) mzero
+	$(MAKE) $(MFLAGS) dummy
 	- mv *.o ./tempdir
-#	- rm -rf tempdir
+	- rm -rf tempdir
 
-mzero: main.o func.o mzero.o func.h
+dummy: dummyencryptor.o
 	- cd tempdir
-	$(CC) $(CFLAGS) -o mzero main.o mzero.o func.o $(LIBS)
+	$(CC) $(CFLAGS) -o dummy dummyencryptor.o $(LIBS)
 
