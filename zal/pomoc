@@ -5,4 +5,11 @@
 .* https://www.gnupg.org/                                       *.
 
 Program ma kilka zastosowań. Możesz za jego pomocą zaszyfrować,
-oraz odszyfrować wiadomości przy  
+oraz odszyfrować wiadomości przy użyciu różnych szyfrów.
+
+Program może pracować w terminalu, lub na plikach.
+
+Użytkowanie:
+----------------------------------------------------------------
+dymmyencryptor [e/d] [f/t] [1-3]
+dummyencryptor [E/D] [F/T] [1-3]
