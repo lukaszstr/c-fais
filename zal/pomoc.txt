@@ -1,0 +1,18 @@
+.::DummyCrypter::.
+.* Nie używaj tego programu do zastosowań innych niż rozrywkowe *.
+.* Do tych celów użyj prawdziwego szyfrowania                   *.
+.* Przykładem niech będzie gpg (The GNU Privacy Guard):         *.
+.* https://www.gnupg.org/                                       *.
+
+Przy użyciu tego programu możesz zaszyfrować,lub odszyfrować wiadomości.
+Program może pracować w terminalu, lub na plikach.
+
+Użytkowanie:
+----------------------------------------------------------------
+dymmycrypter [e/d] [f/t]
+dummycrypter [E/D] [F/T]
+
+Gdzie e/E - oznacza operację zaszyfrowania,
+      d/D - oznacza operację odszyfrowywania,
+      f/F - oznacza pracę na pliku,
+      t/T - oznacza pracę w terminalu. 

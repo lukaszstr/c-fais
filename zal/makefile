@@ -1,14 +1,13 @@
 CC = gcc
 CFLAGS=-Wall -ansi -pedantic
-#LIBS = 
+#LIBS =
 TEMPDIR   := tempdir
-all:	
+all:
 	- mkdir tempdir
 	$(MAKE) $(MFLAGS) dummy
 	- mv *.o ./tempdir
 	- rm -rf tempdir
 
-dummy: dummyencryptor.o
+dummy: dummycrypter.o
 	- cd tempdir
-	$(CC) $(CFLAGS) -o dummy dummyencryptor.o $(LIBS)
-
+	$(CC) $(CFLAGS) -o dummy dummycrypter.o $(LIBS)
