@@ -2,9 +2,6 @@
 # include <stdio.h>
 
 char decipher (char a, char b) {
-  char c = (a - b);
-  if (c > 127) {
-    c = c/2;
-  }
+    unsigned char c = a-b+126-32; /* unsigned żeby można było porównywać 8 bitów, a nie 7) */
 return c;
 }

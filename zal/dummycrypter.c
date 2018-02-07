@@ -21,24 +21,20 @@ if (argumenty < 3) {        /* Przerwij działanie programu jeśli podano za ma�
 else if ( ( (*argv[1] == 'E') || (*argv[1] == 'e') ) && ( (*argv[2] == 't') || (*argv[2] == 'T') ) ) {
 fprintf(stdout, "Wybrano szyfrowanie wiadomosci w terminalu. \nPodaj klucz do szyfrowania\n(zbiór znaków służący do zaszyfrowania wiadomości,\n nie dluzszy niz 25 znakow. TYLKO STANDARDOWE ZNAKI ASCII): \n" );
 fgets(Crypter.klucz, rozmiar_klucz, stdin);
-fprintf(stdout, "Podano: %s\n", Crypter.klucz );
-fprintf(stdout, "\nPodaj wiadomosc do zaszyfrowania: (Nie przekraczaj 1000 znakow. Uzywaj tylko znakow ASCII)\n" );
+/* fprintf(stdout, "Podano: %s\n", Crypter.klucz ); */
+fprintf(stdout, "\nPodaj wiadomosc do zaszyfrowania: (Nie przekraczaj 1000 znakow. Uzywaj tylko drukowalnych znakow ASCII)\n" );
 fgets(Crypter.plaintext, rozmiar_plaintext, stdin);
-fprintf(stdout, "%s\n", Crypter.plaintext );
-/* for(i=0; i<strlen(Crypter.plaintext); i++) {
-    Crypter.encrypted[i] = cipher(Crypter.plaintext[i], '!');
-} */
+/* fprintf(stdout, "%s\n", Crypter.plaintext ); */
 
-while (i < (strlen(Crypter.plaintext) - 1) ) {
-  printf("1");
+  /* Szyfrowanie */
+  while (i < (strlen(Crypter.plaintext) - 1) ) {
     for (j=0; j < (strlen(Crypter.klucz) - 1); j++) {
-      printf("2");
       Crypter.encrypted[i] = cipher(Crypter.plaintext[i],Crypter.klucz[j]);
       i++;
+      }
     }
-  }
-
-fprintf(stdout, "Plaintext: %s\nEncrypted: %s\n", Crypter.plaintext, Crypter.encrypted );
+    /* Wyświetlanie */
+fprintf(stdout, "Plaintext: \n%s\nEncrypted: \n%s\n", Crypter.plaintext, Crypter.encrypted );
 }
 
 /* Szyfrowanie do pliku */
@@ -48,8 +44,24 @@ else if ( ( (*argv[1] == 'E') || (*argv[1] == 'e') ) && ( (*argv[2] == 'f') || (
 
 /*Odszyfrowywanie w terminalu */
 else if ( ( (*argv[1] == 'D') || (*argv[1] == 'd') ) && ( (*argv[2] == 'T') || (*argv[2] == 't') ) ) {
-  fprintf(stdout, "Wybrano odszyfrowywanie w terminalu\n" );
+  fprintf(stdout, "Wybrano odszyfrowywanie w terminalu\nPodaj klucz do szyfrowania\n(zbiór znaków służący do zaszyfrowania wiadomości,\n nie dluzszy niz 25 znakow. TYLKO STANDARDOWE ZNAKI ASCII): \n" );
+  fgets(Crypter.klucz, rozmiar_klucz, stdin);
+  /* fprintf(stdout, "Podano: %s\n", Crypter.klucz ); */
+  fprintf(stdout, "\nPodaj zaszyfrowaną wiadomość: (Nie przekraczaj 1000 znakow. Uzywaj tylko drukowalnych znakow ASCII)\n" );
+  fgets(Crypter.encrypted, rozmiar_plaintext, stdin);
+  /* fprintf(stdout, "%s\n", Crypter.plaintext ); */
+
+    /* OdSzyfrowywanie */
+    while (i < (strlen(Crypter.encrypted) - 1) ) {
+      for (j=0; j < (strlen(Crypter.klucz) - 1); j++) {
+        Crypter.plaintext[i] = decipher(Crypter.encrypted[i],Crypter.klucz[j]);
+        i++;
+        }
+      }
+      /* Wyświetlanie */
+  fprintf(stdout, "Plaintext: \n%s\nEncrypted: \n%s\n", Crypter.plaintext, Crypter.encrypted );
 }
+
 
 /* Odszyfrowywanie z plik */
 else if ( ( (*argv[1] == 'D') || (*argv[1] == 'd') ) && ( (*argv[2] == 'F') || (*argv[2] == 'f') ) ) {
