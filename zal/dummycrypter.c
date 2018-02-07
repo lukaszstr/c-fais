@@ -1,18 +1,15 @@
 /**
     Łukasz Strzelec
     Program zaliczeniowy
-    DummyCrypter
-**/
-
+    DummyCrypter            **/
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "deklaracje.h"
+
 
 int main (int argumenty, char* argv[] ) {     /*Początek funkcji main*/
-
-/* int mode_cipher, mode_terminal;  Deklaracja zmiennych do przechowywania wybranych opcji - zwiększa czytelność kodu, przy sprawdzaniu warunków */
-
 
 if (argumenty < 3) {        /* Przerwij działanie programu jeśli podano za mało argumentów */
   fprintf(stderr, "Za mało argumentów. Sposób wywołania programu:\n dymmycrypter [e/d] [f/t]\ne - szyfruj, \t d - odszyfruj,\t f - działanie na plikach,\t t - działanie w terminalu.\n" );
@@ -22,7 +19,26 @@ if (argumenty < 3) {        /* Przerwij działanie programu jeśli podano za ma�
 
 /* Szyfrowanie w terminalu */
 else if ( ( (*argv[1] == 'E') || (*argv[1] == 'e') ) && ( (*argv[2] == 't') || (*argv[2] == 'T') ) ) {
-fprintf(stdout, "Wybrano szyfrowanie wiadomosci w terminalu. \nPodaj klucz do szyfrowania (zbiór znaków służący do zaszyfrowania wiadomości): \n" );
+fprintf(stdout, "Wybrano szyfrowanie wiadomosci w terminalu. \nPodaj klucz do szyfrowania\n(zbiór znaków służący do zaszyfrowania wiadomości,\n nie dluzszy niz 25 znakow. TYLKO STANDARDOWE ZNAKI ASCII): \n" );
+fgets(Crypter.klucz, rozmiar_klucz, stdin);
+fprintf(stdout, "Podano: %s\n", Crypter.klucz );
+fprintf(stdout, "\nPodaj wiadomosc do zaszyfrowania: (Nie przekraczaj 1000 znakow. Uzywaj tylko znakow ASCII)\n" );
+fgets(Crypter.plaintext, rozmiar_plaintext, stdin);
+fprintf(stdout, "%s\n", Crypter.plaintext );
+/* for(i=0; i<strlen(Crypter.plaintext); i++) {
+    Crypter.encrypted[i] = cipher(Crypter.plaintext[i], '!');
+} */
+
+while (i < (strlen(Crypter.plaintext) - 1) ) {
+  printf("1");
+    for (j=0; j < (strlen(Crypter.klucz) - 1); j++) {
+      printf("2");
+      Crypter.encrypted[i] = cipher(Crypter.plaintext[i],Crypter.klucz[j]);
+      i++;
+    }
+  }
+
+fprintf(stdout, "Plaintext: %s\nEncrypted: %s\n", Crypter.plaintext, Crypter.encrypted );
 }
 
 /* Szyfrowanie do pliku */
