@@ -8,7 +8,6 @@
 #include <string.h>
 #include "deklaracje.h"
 
-
 int main (int argumenty, char* argv[] ) {     /*Początek funkcji main*/
 
 if (argumenty < 3) {        /* Przerwij działanie programu jeśli podano za mało argumentów */
@@ -21,6 +20,7 @@ if (argumenty < 3) {        /* Przerwij działanie programu jeśli podano za ma�
 else if ( ( (*argv[1] == 'E') || (*argv[1] == 'e') ) && ( (*argv[2] == 't') || (*argv[2] == 'T') ) ) {
 fprintf(stdout, "Wybrano szyfrowanie wiadomosci w terminalu. \nPodaj klucz do szyfrowania\n(zbiór znaków służący do zaszyfrowania wiadomości,\n nie dluzszy niz 25 znakow. TYLKO STANDARDOWE ZNAKI ASCII): \n" );
 fgets(Crypter.klucz, rozmiar_klucz, stdin);
+fprintf(stdout, "\n");
 /* fprintf(stdout, "Podano: %s\n", Crypter.klucz ); */
 fprintf(stdout, "\nPodaj wiadomosc do zaszyfrowania: (Nie przekraczaj 1000 znakow. Uzywaj tylko drukowalnych znakow ASCII)\n" );
 fgets(Crypter.plaintext, rozmiar_plaintext, stdin);
