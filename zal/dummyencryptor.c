@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include "deklaracje.h"
 
 int main (int argumenty, char* argv[]) {                   /* Początek funkcji main */
 char en_de, term_file;          /* Deklaracja zmiennej do wyboru działania programu - (de)kodowanie i na pliku czy w terminalu*/
