@@ -11,7 +11,8 @@
 
 int main (int argumenty, char* argv[] ) {     /*Początek funkcji main*/
 
-if (argumenty < 3) {        /* Przerwij działanie programu jeśli podano za mało argumentów */
+/* Przerwij działanie programu jeśli podano za mało argumentów */
+if (argumenty < 3) {
   fprintf(stderr, "Za mało argumentów. Sposób wywołania programu:\n dymmycrypter [e/d] [f/t]\ne - szyfruj, \t d - odszyfruj,\t f - działanie na plikach,\t t - działanie w terminalu.\n" );
   fprintf(stderr, "Więcej informacji:\ndymmycrypter --help\n" );
   return -1;
@@ -29,21 +30,24 @@ fgets(Crypter.plaintext, rozmiar_plaintext, stdin);
 
   /* Szyfrowanie */
   while (i < (strlen(Crypter.plaintext) - 1) ) {
-    for (j=0; j < (strlen(Crypter.klucz) - 1); j++) {
+    printf("Pętla while i=%d\tj=%d\n", i,j);
+    for (j=0; (j < (strlen(Crypter.klucz) - 1) && i < (strlen(Crypter.plaintext) - 1)); j++) {
       Crypter.encrypted[i] = cipher(Crypter.plaintext[i],Crypter.klucz[j]);
       i++;
+      printf("Pętla for i=%d \t j=%d\n", i,j);
       }
     }
     /* Wyświetlanie */
-fprintf(stdout, "Plaintext: \n%s\nEncrypted: \n%s\n", Crypter.plaintext, Crypter.encrypted );
-}
+    fprintf(stdout, "Plaintext: \n%s\nEncrypted: \n%s\n", Crypter.plaintext, Crypter.encrypted );
+    }
 
 /* Szyfrowanie do pliku */
 else if ( ( (*argv[1] == 'E') || (*argv[1] == 'e') ) && ( (*argv[2] == 'f') || (*argv[2] == 'F') ) ) {
   fprintf(stdout, "Wybrano szyfrowanie do pliku\n" );
 }
 
-/*Odszyfrowywanie w terminalu */
+/*Odszyfrowywanie w terminalu */}
+
 else if ( ( (*argv[1] == 'D') || (*argv[1] == 'd') ) && ( (*argv[2] == 'T') || (*argv[2] == 't') ) ) {
   fprintf(stdout, "Wybrano odszyfrowywanie w terminalu\nPodaj klucz do szyfrowania\n(zbiór znaków służący do zaszyfrowania wiadomości,\n nie dluzszy niz 25 znakow. TYLKO STANDARDOWE ZNAKI ASCII): \n" );
   fgets(Crypter.klucz, rozmiar_klucz, stdin);
@@ -54,7 +58,7 @@ else if ( ( (*argv[1] == 'D') || (*argv[1] == 'd') ) && ( (*argv[2] == 'T') || (
 
     /* OdSzyfrowywanie */
     while (i < (strlen(Crypter.encrypted) - 1) ) {
-      for (j=0; j < (strlen(Crypter.klucz) - 1); j++) {
+      for (j=0; (j < (strlen(Crypter.klucz) - 1) && i < (strlen(Crypter.encrypted) - 1)); j++) {
         Crypter.plaintext[i] = decipher(Crypter.encrypted[i],Crypter.klucz[j]);
         i++;
         }
@@ -72,8 +76,6 @@ else if ( ( (*argv[1] == 'D') || (*argv[1] == 'd') ) && ( (*argv[2] == 'F') || (
 else {
     fprintf(stderr, "Podałeś jako argumenty: %s  i %s\t Nieprawidlowy wybor. Sprawdz:\ndummycrypter --help\n", argv[1], argv[2] );
 }
-
-printf("LOL\n");
 
 return 0;
 }
