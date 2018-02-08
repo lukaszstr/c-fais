@@ -1,7 +1,7 @@
-#define rozmiar_plaintext 1000
-#define rozmiar_klucz 25
+#include <stdio.h>
 
 char cipher(char a, char b);
 char decipher(char c, char b);
+char *alokator(FILE* fp, size_t size);
 int i=0, j=0;
-struct crypter {char plaintext[rozmiar_plaintext]; char encrypted[rozmiar_plaintext]; char klucz[rozmiar_klucz]; } Crypter;
+struct crypter {char *plaintext; char *encrypted; char *klucz; } Crypter;

@@ -8,6 +8,6 @@ all:
 	- mv *.o ./tempdir
 	- rm -rf tempdir
 
-dummy: dummycrypter.o cipher.c decipher.c deklaracje.h
+dummy: dummycrypter.o cipher.c decipher.c alokator.c deklaracje.h
 	- cd tempdir
-	$(CC) $(CFLAGS) -o dummy dummycrypter.o deklaracje.h cipher.c decipher.c
+	$(CC) $(CFLAGS) -o dummy dummycrypter.c deklaracje.h cipher.c decipher.c alokator.c 
