@@ -8,6 +8,7 @@
 #include <string.h>
 #include "deklaracje.h"
 
+
 int main (int argumenty, char* argv[] ) {     /*Początek funkcji main*/
 
 if (argumenty < 3) {        /* Przerwij działanie programu jeśli podano za mało argumentów */
