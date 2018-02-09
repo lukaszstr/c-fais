@@ -2,33 +2,32 @@
 **          Program zaliczeniowy        **
 **          DummyCrypter                **
 **                                      **/
-
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "deklaracje.h"
 
 int main (int argumenty, char* argv[] ) {     /*Początek funkcji main*/
-/* Przerwij działanie programu jeśli podano za mało argumentów */
-if (argumenty < 2) {
-  fprintf(stderr, "Za mało argumentów. Sposób wywołania programu:\n dymmycrypter [e/d] [f/t]\ne - szyfruj, \t d - odszyfruj,\t f - działanie na plikach,\t t - działanie w terminalu.\n" );
+
+if (argumenty < 2) {      /* Przerwij działanie programu jeśli podano za mało argumentów */
+  fprintf(stderr, "Za mało argumentów. Sposób wywołania programu:\n dymmycrypter [e/d] \ne - szyfruj, \t d - odszyfruj\n" );
   fprintf(stderr, "Więcej informacji:\ndymmycrypter --help\n" );
   return -1;
 }
-
+/* *********************************************************************************** */
 /* Wybrano Szyfrowanie */
 else if ( (*argv[1] == 'E') || (*argv[1] == 'e') ) {
   fprintf(stdout, "Wybrano szyfrowanie wiadomosci. \nPodaj klucz do szyfrowania\n(zbiór znaków służący do zaszyfrowania wiadomości,\nTYLKO STANDARDOWE ZNAKI ASCII): \n" );
   Crypter.klucz = alokator(stdin, 25);
 /* Jeśli Nie podano argumentu wskazującego na nazwę pliku */
   if (argv[2] == NULL) {
+    do {    /* pętla do while dopóki user nie wybierze prawidłowo */
     fprintf(stdout, "Chcesz zaszyfrowac wiadomosc w terminalu [t], czy wczytac wiadomość z pliku? [f]? (Pamiętaj, że wiadomość powinna składać się z 1 akapitu -- 1 wiersza)\nDokonaj wyboru [t]/[f]\n" );
     scanf(" %c", &wybor);
+  } while  ( (wybor != 'T') && (wybor != 't')  &&  (wybor != 'f') && (wybor != 'F') )  ;
 /* Szyfrowanie w terminalu */
     if ((wybor == 't') || (wybor == 'T'))  {
       fprintf(stdout, "Wybrano szyfrowanie wiadomosci w terminalu.\n");
       fprintf(stdout, "\nPodaj wiadomosc do zaszyfrowania: (Uzywaj tylko drukowalnych znakow ASCII)\n" );
-      getchar();
+      getchar();  /*Wyczyść bufor, żeby nie czekać na 2 entery*/
       Crypter.plaintext = alokator(stdin, 250); /* Wczytaj wiadomość z stdin */
     }
 /* Szyfrowanie z pliku - podaj nazwę pliku */
@@ -36,30 +35,31 @@ else if ( (*argv[1] == 'E') || (*argv[1] == 'e') ) {
         fprintf(stdout, "Wybrano szyfrowanie z pliku\nPodaj nazwe pliku, z którego odczytać wiadomość\n" );
         getchar();
         filename = alokator(stdin, 20);
-        FILE *odczyt = fopen(filename, "r");
+        odczyt = fopen(filename, "r");
         /* nie można otworzyć pliku */
         if (odczyt == NULL) {
           fprintf(stderr, "Nie można otworzyć wskazanego pliku!\nPlik o zadanej nazwie: %s, nie istnieje, nie znajduje się w pwd, albo nie posiadasz uprawnień do odczytu\n", filename);
           return -1;
         }
         else {      /* wczytaj wiadomość z pliku */
-          getchar();
+          fprintf(stdout, "Szyfruję wiadomość z pliku: %s\n", filename );
         Crypter.plaintext = alokator(odczyt, 250);
         fclose(odczyt);
       }
     }
-    else {  /* Jeśli user nie poda prawidłowego znaku */
+  /* Stało się niepotrzebne bo jest pętla do while  else {   Jeśli user nie poda prawidłowego znaku
       fprintf(stderr, "Niepoprawny wybór\n");
-    }
+      return -1;
+    } */
   }
   else {  /* Jeśli argument 2 istnieje, spróbuj wczytać z niego zawartość pliku */
-    FILE *odczyt = fopen(argv[2], "r");
+    odczyt = fopen(argv[2], "r");
     if (odczyt == NULL) {
       fprintf(stderr, "Podałeś jako argument wywołania: %s\t Nie można otworzyć takiego pliku!. Plik nie istnieje, nie znajduje się w pwd, albo nie posiadasz uprawnień do odczytu\n", argv[2]);
       return -1;
     }
     else {
-      getchar();
+      fprintf(stdout, "Zaszyfrowywuje wiadomość z pliku:%s\n", argv[2] );
     Crypter.plaintext = alokator(odczyt, 250);
       }
     }
@@ -76,66 +76,65 @@ else if ( (*argv[1] == 'E') || (*argv[1] == 'e') ) {
     wybor = 'a'; /* Wyzeruj wartość zmiennej na wszelki wypadek */
     scanf(" %c", &wybor);
     if (wybor == 't' || wybor == 'T') {
-      FILE *zapis = fopen("zaszyfrowana_wiadomosc.txt", "w");
+      zapis = fopen("zaszyfrowana_wiadomosc.txt", "w");
       if (zapis == NULL) {
         fprintf(stderr, "Nie można utworzyć pliku!\n");
         return -1;
        }
-       else {
-         fprintf(zapis, "Treść zaszyfrowanej wiadomości:\n%s", Crypter.encrypted);
+         fprintf(zapis, "%s", Crypter.encrypted);
          fprintf(stdout, "Pomyślnie utworzono plik z treścią zapisanej wiadomości.\n" );
          fclose(zapis);
-       }
      }
    } /* Koniec wyboru - szyfrowanie */
 
 /***********************************************************************************************/
 
-/*Odszyfrowywanie w terminalu */
+/*Wybrano Odszyfrowywanie  */
 else if  ( (*argv[1] == 'D') || (*argv[1] == 'd') ) {
-  fprintf(stdout, "Wybrano odszyfrowywanie w terminalu\nPodaj klucz użyty do zaszyfrowania wiadomości\n (TYLKO STANDARDOWE ZNAKI ASCII): \n" );
-  getchar();
+  fprintf(stdout, "Wybrano odszyfrowywanie \nPodaj klucz użyty do zaszyfrowania wiadomości\n (TYLKO STANDARDOWE ZNAKI ASCII): \n" );
   Crypter.klucz = alokator(stdin, 25);
   /* Jeśli Nie podano argumentu wskazującego na nazwę pliku */
     if (argv[2] == NULL) {
+      do {
       fprintf(stdout, "Chcesz odszyfrowac wiadomosc w terminalu [t], czy wczytac zaszyfrowaną wiadomość z pliku? [f]? (Pamiętaj, że wiadomość powinna składać się z 1 akapitu -- 1 wiersza)\nDokonaj wyboru [t]/[f]\n" );
-      scanf(" %c ", &wybor);
+      scanf(" %c", &wybor);
+    }while  ( (wybor != 'T') && (wybor != 't')  &&  (wybor != 'f') && (wybor != 'F') )  ;
       /* Odszyfrowywanie w terminalu */
       if ( (wybor == 'T') || (wybor == 't') ) {
+        fprintf(stdout, "Wybrano odszyfrowanie wiadomosci w terminalu.\n");
         fprintf(stdout, "\nPodaj zaszyfrowaną wiadomość: (Uzywaj tylko drukowalnych znakow ASCII)\n" );
         getchar();
-        Crypter.encrypted = alokator(stdin, 250);
+        Crypter.encrypted = alokator(stdin, 250); /* Wczytaj wiadomość z stdin */
       }
       /* OdSzyfrowywanie z pliku - podaj nazwę */
       else if ((wybor == 'F') || (wybor == 'f')) {
-        fprintf(stdout, "Wybrano odszyfrowywanie wiadomości z pliku\n" );
-        fprintf(stdout, "Podaj nazwe pliku, z którego odczytać zaszyfrowaną wiadomość\n" );
+        fprintf(stdout, "Wybrano odszyfrowywanie wiadomości z pliku\nPodaj nazwe pliku, z którego odczytać zaszyfrowaną wiadomość\n" );
         getchar();
         filename = alokator(stdin, 20);
-        FILE *odczyt = fopen(filename, "r");
+        odczyt = fopen(filename, "r");
         /* nie można otworzyć pliku */
         if (odczyt == NULL) {
           fprintf(stderr, "Nie można otworzyć wskazanego pliku!\nPlik o zadanej nazwie: %s, nie istnieje, nie znajduje się w pwd, albo nie posiadasz uprawnień do odczytu\n", filename);
           return -1;
         }
           else {      /* wczytaj wiadomość z pliku */
-            getchar();
             Crypter.encrypted = alokator(odczyt, 250);
             fclose(odczyt);
           }
         }
-        else {  /* Jeśli user nie poda prawidłowego znaku */
-        fprintf(stderr, "Niepoprawny wybór\n");
-      }
+        /* Stało się niepotrzebne bo jest pętla do while  else {   Jeśli user nie poda prawidłowego znaku
+            fprintf(stderr, "Niepoprawny wybór\n");
+            return -1;
+          } */
     }
       else {  /* Jeśli argument 2 istnieje, spróbuj wczytać z niego zawartość pliku */
-        FILE *odczyt = fopen(argv[2], "r");
+        odczyt = fopen(argv[2], "r");
         if (odczyt == NULL) {
           fprintf(stderr, "Podałeś jako argument wywołania: %s\t Nie można otworzyć takiego pliku!. Plik nie istnieje, nie znajduje się w pwd, albo nie posiadasz uprawnień do odczytu\n", argv[2]);
           return -1;
         }
         else {
-        getchar();
+        fprintf(stdout, "Odszyfrowywuje wiadomość z pliku:%s\n",argv[2] );
         Crypter.encrypted = alokator(odczyt, 250);
           }
         }
@@ -153,13 +152,13 @@ while (i < (strlen(Crypter.encrypted) ) ) {
   scanf(" %c", &wybor);
   fprintf(stdout, "\n" );
   if (wybor == 't' || wybor == 'T') {
-    FILE *zapis = fopen("odszyfrowana_wiadomosc.txt", "w");
+    zapis = fopen("odszyfrowana_wiadomosc.txt", "w");
     if (zapis == NULL) {
       fprintf(stderr, "Nie można utworzyć pliku!\n");
       return -1;
      }
      else {
-       fprintf(zapis, "Treść odszyfrowanej wiadomości:\n%s", Crypter.plaintext);
+       fprintf(zapis, "%s", Crypter.plaintext);
        fprintf(stdout, "Pomyślnie utworzono plik z treścią zapisanej wiadomości.\n" );
        fclose(zapis);
      }

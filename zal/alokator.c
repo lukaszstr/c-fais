@@ -1,3 +1,4 @@
+/* Łukasz Strzelec - funckja alokator zajmuje się dynamiczną alokacją pamięci i czytanie z pliku/stdin*/
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -9,6 +10,7 @@ char *alokator(FILE* fp, size_t size) {
   if (!ciag ) {
     return ciag;
   }
+  /* Teraz pętla while do nowej linii lub EOF*/
   while (EOF != (wskazywacz = fgetc(fp) ) && wskazywacz != '\n') {
     ciag[dlugosc++] = wskazywacz;
     if (dlugosc == size) {
