@@ -47,10 +47,6 @@ else if ( (*argv[1] == 'E') || (*argv[1] == 'e') ) {
         fclose(odczyt);
       }
     }
-  /* Stało się niepotrzebne bo jest pętla do while  else {   Jeśli user nie poda prawidłowego znaku
-      fprintf(stderr, "Niepoprawny wybór\n");
-      return -1;
-    } */
   }
   else {  /* Jeśli argument 2 istnieje, spróbuj wczytać z niego zawartość pliku */
     odczyt = fopen(argv[2], "r");
@@ -122,10 +118,6 @@ else if  ( (*argv[1] == 'D') || (*argv[1] == 'd') ) {
             fclose(odczyt);
           }
         }
-        /* Stało się niepotrzebne bo jest pętla do while  else {   Jeśli user nie poda prawidłowego znaku
-            fprintf(stderr, "Niepoprawny wybór\n");
-            return -1;
-          } */
     }
       else {  /* Jeśli argument 2 istnieje, spróbuj wczytać z niego zawartość pliku */
         odczyt = fopen(argv[2], "r");
@@ -164,6 +156,24 @@ while (i < (strlen(Crypter.encrypted) ) ) {
      }
    }
 } /* Koniec Wyboru Odszyfrowywania */
+/* ************************************************************* */
+
+else if (!strcmp(argv[1], "-h" ) || !strcmp(argv[1], "--help") ) { /* call for help */
+  fprintf(stdout, "POMOC:\n.::DummyCrypter::.\nAutor:\t Łukasz Strzelec\nProgram szyfruje (lub odszyfrowywuje) wiadomość, poprzez szyfr przesuwny, tzn każdy znak wiadomości jest zmieniany na inny znak, o wartości większej o wartość znaku klucza (według tabeli ASCII).\n" );
+  fprintf(stdout, "Program może działać w terminalu, lub na plikach. Istnieje możliwość zapisu efektu działania programu (wiadomości zaszyfrowanej, lub odszyfrowanej) do pliku.\n" );
+  fprintf(stdout, "Do działania programu potrzebny jest klucz - ciąg znaków, będący tajnym 'hasłem', program zapyta o ten klucz po uruchomieniu.\n" );
+  fprintf(stdout, "Głównym ograniczeniem działania programu jest zestaw znaków, które można użyć w wiadomości. Jest to zestaw podstawowych znaków drukowalnych ASCII. \n" );
+  fprintf(stdout, "Uruchamianie-------------------------------------------------------------------\n" );
+  fprintf(stdout, "dymmycrypter [e] / [d] nazwa_pliku\n" );
+  fprintf(stdout, "Gdzie:\te/E - oznacza operację zaszyfrowania,\n\td/D - oznacza operację odszyfrowywania\n");
+  fprintf(stdout, "\tnazwa_pliku - opcjonalnie w komendzie wywołania podać można nazwę pliku na którym będzie przeprowadzana operacja.\n" );
+  fprintf(stdout, "Jeśli nie podano nazwy pliku wywołując program, ten zapyta czy pracować w terminalu - czy otworzyć plik. Użytkownik może wtedy też podać nazwę pliku z wiadomością.\n" );
+  fprintf(stdout, "\n" );
+
+}
+else {
+    fprintf(stdout, "Nieprawidłowe wywołanie programu. Sprawdź:\ndummycrypter --help\n" );
+}
 
 free(Crypter.klucz);
 free(Crypter.encrypted);

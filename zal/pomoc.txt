@@ -1,18 +1,20 @@
 .::DummyCrypter::.
+Autor:    Łukasz Strzelec
 .* Nie używaj tego programu do zastosowań innych niż rozrywkowe *.
 .* Do tych celów użyj prawdziwego szyfrowania                   *.
 .* Przykładem niech będzie gpg (The GNU Privacy Guard):         *.
 .* https://www.gnupg.org/                                       *.
 
-Przy użyciu tego programu możesz zaszyfrować,lub odszyfrować wiadomości.
-Program może pracować w terminalu, lub na plikach.
+Program szyfruje (lub odszyfrowywuje) wiadomość, poprzez szyfr przesuwny, tzn każdy znak wiadomości jest zmieniany na inny znak, o wartości większej o wartość znaku klucza (według tabeli ASCII).
 
-Użytkowanie:
-----------------------------------------------------------------
-dymmycrypter [e/d] [f/t]
-dummycrypter [E/D] [F/T]
+Program może działać w terminalu, lub na plikach. Istnieje możliwość zapisu efektu działania programu (wiadomości zaszyfrowanej, lub odszyfrowanej) do pliku.
+Do działania programu potrzebny jest klucz - ciąg znaków, będący tajnym "hasłem", program zapyta o ten klucz po uruchomieniu.
+Głównym ograniczeniem działania programu jest zestaw znaków, które można użyć w wiadomości. Jest to zestaw podstawowych znaków drukowalnych ASCII.
+Uruchamianie-------------------------------------------------------------------
+dymmycrypter [e] / [d] nazwa_pliku
 
 Gdzie e/E - oznacza operację zaszyfrowania,
       d/D - oznacza operację odszyfrowywania,
-      f/F - oznacza pracę na pliku,
-      t/T - oznacza pracę w terminalu. 
+      nazwa_pliku - opcjonalnie w komendzie wywołania podać można nazwę pliku na którym będzie przeprowadzana operacja.
+
+Jeśli nie podano nazwy pliku wywołując program, ten zapyta czy pracować w terminalu - czy otworzyć plik. Użytkownik może wtedy też podać nazwę pliku z wiadomością.
