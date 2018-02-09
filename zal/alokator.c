@@ -11,7 +11,7 @@ char *alokator(FILE* fp, size_t size) {
     return ciag;
   }
   /* Teraz pętla while do nowej linii lub EOF*/
-  while (EOF != (wskazywacz = fgetc(fp) ) && wskazywacz != '\n') {
+  while (EOF != (wskazywacz = fgetc(fp) ) ) {
     ciag[dlugosc++] = wskazywacz;
     if (dlugosc == size) {
       ciag = realloc( ciag, sizeof(char)*(size += 16) );
