@@ -1,4 +1,8 @@
 # c-fais
+
+## cw1
+januszk@th.if.uj.edu.pl
+
 Repository with my works for laboratories.
 
 unikać nadmiaru w plikach nagłówkowych
