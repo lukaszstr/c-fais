@@ -3,6 +3,8 @@
 ## cw1
 januszk@th.if.uj.edu.pl
 
+Nice. Logowanie po ssh zachodzi do ubuntu 18.04 Czy bedzie zmiana??
+
 Repository with my works for laboratories.
 
 unikać nadmiaru w plikach nagłówkowych
