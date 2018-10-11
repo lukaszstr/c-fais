@@ -1,5 +1,8 @@
 # c-fais
 
+## cw2
+scanf
+
 ## cw1
 januszk@th.if.uj.edu.pl
 
