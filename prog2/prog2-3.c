@@ -36,7 +36,7 @@ int main()
 	scanf("%lf",&x);
 	printf("Podaj do ktorej potegi chcesz podniesc n: \n");
 	scanf("%d",&a);
-	printf("%g do potegi %d=%g\n",x,a,potega(x,a));
+	printf("%g do potegi %d = %g\n",x,a,potega(x,a));
 	printf("Biblioteczna funkcja: %g\n",pow(x,a));
 	return 0;
 
