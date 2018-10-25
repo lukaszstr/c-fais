@@ -1,5 +1,11 @@
 # c-fais
 
+##cw4
+Przekazywanie argumentu przez wartość. Nie da się zmienić parametru przekazując do funkcji, bo przekazana zostanie ta kopia. 
+Inny sposób: Przekazywanie argumentu przez adres. 
+
+
+
 ## cw2
 scanf
 
