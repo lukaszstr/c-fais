@@ -25,13 +25,9 @@ int main ()
 {
 	int status = 0;
 	double a, b, c, x1,x2;
-	printf("Program liczacy rozwiazania dwumianu kwadratowego. \nPodaj odpowiednie wspolczynniki a,b,c zgodnie ze wzorem=\ta*x^2+b*x+c\n");
-	printf("Podaj wspolczynnik 'a': ");
-	scanf("%lf", &a);
-	printf("Podaj wspolczynnik 'b': ");
-	scanf("%lf", &b);
-	printf("Podaj wspolczynnik 'c': ");
-	scanf("%lf", &c);
+	printf("Program liczacy rozwiazania dwumianu kwadratowego. \nPodaj odpowiednie wspolczynniki a,b,c zgodnie ze wzorem=\tax^2+bx+c\n\tGdzie a,b,c to zmiene w postali liczb rzeczywistych\n");
+	printf("Podaj rownanie: ");
+	scanf("%lfx^2%lfx%lf", &a,&b,&c);
 	printf("\tTwoje rownanie ma postac: \n\t\t %g * x^2 + %g * x + %g\n",a,b,c);
 	if (a==0)
 	{
