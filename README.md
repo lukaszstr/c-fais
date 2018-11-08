@@ -5,7 +5,6 @@ Przekazywanie argumentu przez wartość. Nie da się zmienić parametru przekazu
 Inny sposób: Przekazywanie argumentu przez adres. 
 
 
-
 ## cw2
 scanf
 
