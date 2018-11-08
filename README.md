@@ -1,5 +1,24 @@
 # c-fais
 
+##cw5
+Żeby wypisać liczbę ze znakiem wystarczy w formacie dodać znak ex:
+printf("Rownanie: %+gx %+gy = %+g"); 	
+
+algebraiczne rozwiązywanie takie układu równań to w przestrzeni kartezjańskiej są 2 proste więc mamy 3 przypadki. Wyliczyć należy wyznaczniki:
+	|a_11   a_12 |
+W = |			 |  = a_11*a_2 - a_12*a_21
+	|a_21   a_22 |
+
+Wx= |b_1  a_12 |
+	|b_2  a_22 |
+
+Wy= |a_11  b_1 |
+	|a_21  b_2 |
+
+1) W =/= 0 ==> x=Wx/W ==>Wy/W
+2) W=Wx=Wy=0   infinity
+3) układ sprzeczny	
+
 ##cw4
 Przekazywanie argumentu przez wartość. Nie da się zmienić parametru przekazując do funkcji, bo przekazana zostanie ta kopia. 
 Inny sposób: Przekazywanie argumentu przez adres. 
