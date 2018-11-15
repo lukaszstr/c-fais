@@ -1,6 +1,9 @@
 # c-fais
 
-##cw5
+## cw6
+
+
+## cw5
 Żeby wypisać liczbę ze znakiem wystarczy w formacie dodać znak ex:
 printf("Rownanie: %+gx %+gy = %+g"); 	
 
@@ -19,7 +22,7 @@ Wy= |a_11  b_1 |
 2) W=Wx=Wy=0   infinity
 3) układ sprzeczny	
 
-##cw4
+## cw4
 Przekazywanie argumentu przez wartość. Nie da się zmienić parametru przekazując do funkcji, bo przekazana zostanie ta kopia. 
 Inny sposób: Przekazywanie argumentu przez adres. 
 
