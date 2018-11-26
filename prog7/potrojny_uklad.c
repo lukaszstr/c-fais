@@ -41,7 +41,7 @@ double det3 (double a[][3])
 	w -= a[0][2]*a[1][1]*a[2][0];
 	w -= a[0][0]*a[1][2]*a[2][1];
 	w -= a[0][1]*a[1][0]*a[2][2];
-	/*printf("\nWyznacznik W= %g\n", w);*/
+	printf("\nWyznacznik W= %g\n", w);
 	return w;
 }
 
@@ -70,7 +70,7 @@ int uklad3(double a[][3], double b[], double x[])
 	}
 	for (int i=0; i<3; i++)
 	{
-		t[1][i]=b[i];
+		t[i][1]=b[i];
 	}
 	x[1]=det3(t)/w_main;
 
@@ -83,10 +83,10 @@ int uklad3(double a[][3], double b[], double x[])
 	}
 	for (int i=0; i<3; i++)
 	{
-		t[2][i]=b[i];
+		t[i][2]=b[i];
 	}
 	x[2] = det3(t)/w_main;
-
+	return 2;
 } 
 
 int potrojnyuklad()
@@ -113,6 +113,7 @@ int potrojnyuklad()
 		printf("\tx_%d = %g \n",i,x[i]);
 	}
 	printf("\n ");
+	return 190;
 	}
 	
 

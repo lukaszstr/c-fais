@@ -18,19 +18,19 @@ int uklad2(double a[][2], double b[], double x[])
 	double wyznacznik_glowny, wyznacznik_x, wyznacznik_y;
 	double temp[2][2];
 	wyznacznik_glowny = det(a);
-	/* printf("main-det=%g\n",wyznacznik_glowny); */
+	printf("main-det=%g\n",wyznacznik_glowny); 
 	temp[0][0]=b[0];
 	temp[1][1]=a[1][1];
 	temp[0][1]=a[0][1];
-	temp[1][0]=a[1][0];
+	temp[1][0]=b[1];
 	wyznacznik_x=det(temp);
-	/* printf("det-x=%g\n",wyznacznik_x); */
+	printf("det-x=%g\n",wyznacznik_x); 
 	temp[0][0]=a[0][0];
 	temp[1][1]=b[1];
 	temp[0][1]=b[0];
 	temp[1][0]=a[1][0];
 	wyznacznik_y=det(temp);
-	/* printf("det-y=%g\n",wyznacznik_y); */
+	printf("det-y=%g\n",wyznacznik_y);
 	if (wyznacznik_glowny != 0)
 	{
 		x[0]=wyznacznik_x/wyznacznik_glowny;
