@@ -1,5 +1,26 @@
 # c-fais
 
+## cw7
+### 29.11.2018
+
+int main(int argc, char *argv[])
+w ten sposób deklarujemy funkcję main wywołując z argumentami
+
+sscanf musi dostać char, więc trzeba 
+
+
+	scanf("format", ...) -> fscanf("fin,"format", ...)
+	printf("format",zmienne) --> fprintf(fout, "format",)
+
+	fclose(fin);
+	fclose(fout);
+} 
+
+utworzyć edytorem i wpisać kilka liczb całkowtych
+w programie wczytać listy do tablicy int
+a następnie pliki przepisać do innego pliku
+ 
+
 ## cw6
 
 
