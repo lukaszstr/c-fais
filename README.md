@@ -19,8 +19,11 @@ sscanf musi dostać char, więc trzeba
 utworzyć edytorem i wpisać kilka liczb całkowtych
 w programie wczytać listy do tablicy int
 a następnie pliki przepisać do innego pliku
- 
 
+*p - gain access to object that pointer p points to.  
+int i, *p = &i;
+
+void f(const int *p)  
 ## cw6
 
 
