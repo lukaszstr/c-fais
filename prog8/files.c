@@ -35,31 +35,6 @@ int main ()
         }
 	}
 
-/*	 OLD
-	while (true) {
-	status = fscanf(fin, " %d ", &tablica_1[i]);
-	printf("\tSTATUS=%d\n", status);
-	if(status == 1){
-		for (int j=0; j<=i;  j++)
-		printf("%d\n",tablica_1[j]); 
-        i++;
-           /* printf("%d \n", tablica_1);*/  /*
-    }
-        else if(errno != 0) {
-            perror("scanf:");
-            break;
-        } else if(status == EOF) {
-        	printf("break\n");
-            break;
-        } else {
-            printf("No match.\n");
-        }
-	} */
-
-/*	Wyświetlanie tablicy 				*
-	for (int i=0; i<ilosc_elementow; i++)
-		printf("\t%d\n",tablica_1[i]); */
-
 /* Zapisz tablicę do nowego pliku 		*/
 	for (i=0; i<ilosc_elementow; i++)
 	{
