@@ -18,13 +18,15 @@ void szukacz(int n, int a[], int *min, int *max)
 }
 void sortuj(int a[], int n)
 {
-	int i, j, temp;
+	int i, j, temp, k=0;
+	printf("Sortuje...\n");
 	for(i=n-1;i>0;i--)
 	{
 		for (j=0;j<i; j++)
 		{
 			if (a[j]>a[j+1])
 				{
+					k++;
 					temp = a[j+1];
 					a[j+1]=a[j];
 					a[j]=temp;
@@ -32,6 +34,7 @@ void sortuj(int a[], int n)
 				
 		}
 	}
+	printf("Dokonano %d zamian\n", k);
 }
 
 int main(int argc, char *argv[])
