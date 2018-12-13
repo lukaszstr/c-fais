@@ -1,12 +1,16 @@
 Pierwsze wg alfabetu imie: ania
 Ostatnie wg alfabetu imie: waleria
 ania
-ania
+barbara
 bartek
 darek
 daria
 kaja
 kajtek
+karolina
 konfitura
+krzysztof
 maja
+marcin
+olaf
 waleria
