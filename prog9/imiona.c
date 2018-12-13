@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 	while(fscanf(fin, "%s", imiona[liczba_imion])==1)liczba_imion++;
 	printf("imion=%d\n", liczba_imion);
 
-	
+
 	for(i=0; i<liczba_imion; i++)
 	{
 		fprintf(fout, "%s\n", imiona[i]);
