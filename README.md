@@ -1,4 +1,19 @@
 # c-fais
+## cw 12
+Za tydzień kolokwium, jeszcze jeden program.
+Program ma mieć menu:
+1. Wcztraj dane z pliku:
+2. Wypisz dane w postaci tabelki.
+3. Sortuj dane.
+	a) wg NIWZ
+	b) w/g INWZ
+	c) w/g WNIZ
+	d) wg ZNIW
+4. Dodaj osobe do bazy
+5. Usun osobe z bazy
+6. Zapisz dane do pliku.
+7. Koniec programu.
+
 ## cw 11
 Struktury
 
