@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 
 typedef struct {
@@ -57,6 +58,32 @@ void wypisz_dane(OSOBA osoba[], int liczba_imion)
 	horizontal();
 }
 
+int compareNIWZ(const void *a, const void *b)
+{
+	int wyrocznia=0;
+	wyrocznia = strcmp(a,b);
+	if (wyrocznia)
+		return 1;
+	else if (wyrocznia == -1)
+		return -1;
+	else 
+		compareINWZ(a,b);
+	return -2;
+}
+
+int compareINWZ(const void *a, const void *b)
+{
+	return -2;
+}
+int compareWNIZ(const void *a, const void *b)
+{
+	return -2;
+}
+int compareZNIW(const void *a, const void *b)
+{
+	return -2;
+}
+
 int main()
 {
 	OSOBA osoba[30];
@@ -86,6 +113,7 @@ int main()
 	/* Menu główne */
 			switch (wybor)
 		{
+		/* Wczytywanie pliku. Error-prone jak zły format? */
 			case 1:
 				printf("Podaj nazwę pliku z którego dane wczytać\t");
 				scanf("%s", nazwa_pliku);
@@ -97,10 +125,12 @@ int main()
 				printf("\n");
 				sleep(3);
 				break;
+		/* Wypisywanie danych. Zmienić na enter żeby wrócić do menu? */
 			case 2:
 				wypisz_dane(osoba, liczba_osob);
 				sleep(5);
 				break;
+		/*Sortowanie */
 			case 3:
 				printf("Jak posortować dane?\n");
 				printf("\t1. w/g NIWZ\n\t2. w/g INWZ\n\t3. w/g WNIZ\n\t4. w/g ZNIW\nDOKONAJ WYBORU: ");
@@ -109,6 +139,7 @@ int main()
 				switch (wybor)
 				{
 					case 1:
+						qsort(osoba->nazwisko, liczba_osob, sizeof(osoba->nazwisko), compareNIWZ);
 						break;
 					case 2:
 						break;
@@ -121,13 +152,33 @@ int main()
 				}
 				break;
 			case 4:
-				/*sth*/
+/* nie działa zbyt ładnie -- doda wszystko co wpiszesz -- WON'TFIX? */				
+				printf("Dodaje osobę na końcu tabeli");
+				printf("Podaj dane w formacie:\nImie\tNazwisko\tWiek\tZarobki\n");
+				printf("char[]\tchar[]\t\tint\tdouble\n");
+				getline(&wejscie,&len,stdin);
+				if (sscanf(wejscie, "%s %s %d %lf", osoba[liczba_osob].imie, osoba[liczba_osob].nazwisko, &osoba[liczba_osob].wiek, &osoba[liczba_osob].zarobki) == 4){
+					liczba_osob++;
+					printf("Dodano jako osobę nr. %d: %s %s %d %f", liczba_osob, osoba[liczba_osob-1].imie, osoba[liczba_osob-1].nazwisko, osoba[liczba_osob-1].wiek, osoba[liczba_osob-1].zarobki);
+					printf("\n");
+				}
+				else 
+					printf("Błąd! Nie podano odpowiedniej liczby danych!");
+					printf("/n");
+				sleep(2);
 				break;
+			
 			case 5:
 				/*sth*/
 				break;
+			
 			case 6:
-				/*sth*/
+				printf("Podaj nazwę pliku w którym zapisać dane:");
+				getline(&wejscie,&len-1,stdin); /* O co chodzi z tym lengthem?? !! */
+				zapisz_osoby(wejscie, osoba, liczba_osob);
+				printf("Pomyślnie zapisano do pliku: %s", wejscie);
+				printf("\n");
+				sleep(3);
 				break;
 			case 7:
 				return 0;
