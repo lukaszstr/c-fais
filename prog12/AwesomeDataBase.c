@@ -5,34 +5,37 @@
 
 int main(int argc, char *argv[])
 {
+/* Kilka deklaracji */
 	OSOBA osoba[30];
 	int liczba_osob;
+	char *wejscie = NULL;
+	size_t len = 0;
+/* Sprawdza czy zostały podane jakieś argumenty wywołania programu */
 	if (argc == 1)
 		printf("Przechodzę do menu");
 	else if ( !strcmp(argv[1],"--help") || !strcmp(argv[1],"--h") || !strcmp(argv[1],"help") )
 	{
-		printf("Prosty program przetwarzający dane osób.");
+		printf("Prosty program przetwarzający dane osób.\n");
+		printf("Obsługa:\nJako argument wywołania programu można podać nazwę pliku z danymi do wczytania w formacie:\nImię Nazwisko Wiek Zarobki\n\tgdzie Imię i Nazwisko może być ciągiem do %d, %d znaków, \n\tWiek liczbą całkowitą, a zarobki zmiennoprzecinkową.\n", IMIE_LEN, NAZWISKO_LEN);
 		printf("\n");
-		sleep(1);
+		printf("Wciśnij ENTER aby wrócić do MENU\n");
+		getline(&wejscie,&len,stdin);
 	}
 	else
 	{
-/* program tu się wykrzacza jeśli nie znajdzie takiego pliku */		
 		liczba_osob = wczytaj_osoby(argv[1], osoba);
-		printf("Wczytano dane %d osób", liczba_osob);
+		if (liczba_osob == 0)
+			printf("Nie znaleziono pliku %s",argv[1]);
+		else
+			printf("Wczytano dane %d osób", liczba_osob);
 		printf("\n");
-		sleep(1);
+		sleep(2);
 	} 
-
+/* Wyświetla menu główne */
 	while (1)
 	{
 		int wybor;
-
-		char *wejscie = NULL;
-		char nazwa_pliku[25];
-		size_t len = 0;
 		printf("\e[1;1H\e[2J"); /* clears the screen */
-/* Wyświetla menu główne */
 		printf("\t PROGRAM PRZETWARZAJACY DANE \n");
 		horizontal();
 		printf("\t\t MENU GŁÓWNE\t\t\n");
@@ -51,26 +54,29 @@ int main(int argc, char *argv[])
 /* Menu główne */
 			switch (wybor)
 		{
-/* Wczytywanie pliku. Error-prone jak zły format? */
+/* Wczytywanie pliku */
 			case 1:
 				printf("Podaj nazwę pliku z którego dane wczytać:  ");
-				scanf("%s", nazwa_pliku);
+				getline(&wejscie,&len,stdin);
 				#if DEBUG
-				printf("\n\t%s\n", nazwa_pliku);
+				printf("\n\t%s\n", wejscie);
 				#endif
-				liczba_osob = wczytaj_osoby(nazwa_pliku, osoba);
-				printf("Pomyślnie wczytano dane %d osób\n", liczba_osob);
+				wejscie[strlen(wejscie)-1] = '\0';
+				liczba_osob = wczytaj_osoby(wejscie, osoba);
+				if (liczba_osob == 0)
+					printf("Nie znaleziono pliku %s\n", wejscie);
+				else
+					printf("Pomyślnie wczytano dane %d osób\n", liczba_osob);
 				printf("Wciśnij ENTER aby wrócić do MENU\n");
 				getline(&wejscie,&len,stdin);
-				getline(&wejscie,&len,stdin);
 				break;
-/* Wypisywanie danych. Zmienić na enter żeby wrócić do menu? */
+/* Wypisywanie danych */
 			case 2:
 				wypisz_dane(osoba, liczba_osob);
 				printf("Wciśnij ENTER aby wrócić do MENU\n");
 				getline(&wejscie,&len,stdin);
 				break;
-/*Sortowanie */
+/*Sortowania */
 			case 3:
 				printf("Jak posortować dane?\n");
 				printf("\t1. w/g NIWZ\n\t2. w/g INWZ\n\t3. w/g WNIZ\n\t4. w/g ZNIW\nDOKONAJ WYBORU: ");
@@ -103,7 +109,7 @@ int main(int argc, char *argv[])
 				}
 				break;
 			case 4:
-/* Dodawanie do bazy - nie działa zbyt ładnie -- doda wszystko co wpiszesz -- WON'TFIX? */				
+/* Dodawanie do bazy  */	
 				printf("Dodaje osobę na końcu tabeli");
 				printf("Podaj dane w formacie:\nImie\tNazwisko\tWiek\tZarobki\n");
 				printf("char[]\tchar[]\t\tint\tdouble\n");
@@ -134,7 +140,7 @@ int main(int argc, char *argv[])
 				break;
 /* Zapis danych do pliku */			
 			case 6:
-				printf("Podaj nazwę pliku w którym zapisać dane:");
+				printf("Podaj nazwę pliku w którym zapisać dane:  ");
 				getline(&wejscie,&len,stdin); 
 				wejscie[strlen(wejscie)-1] = '\0'; /*This dirty hacks removes the new lin char */
 				zapisz_osoby(wejscie, osoba, liczba_osob);
