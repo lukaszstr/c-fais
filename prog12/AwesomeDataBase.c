@@ -1,17 +1,21 @@
 /* Author: Łukasz Strzelec */
 /* Program z menu, przetwarzający proste dane */
 
-#include <stdio.h>
+#include "deklaracje.h"
+/*#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
+#define IMIE_LEN 20
+#define NAZWISKO_LEN 20
+
 typedef struct {
-		char imie[20];
-		char nazwisko[20];
+		char imie[IMIE_LEN];
+		char nazwisko[NAZWISKO_LEN];
 		int wiek;
 		double zarobki;
-	} OSOBA;
+	} OSOBA;*/
 
 int wczytaj_osoby(char *plik, OSOBA osoba[])
 {
@@ -57,45 +61,171 @@ void wypisz_dane(OSOBA osoba[], int liczba_imion)
 	}
 	horizontal();
 }
+int usun_osobe(OSOBA osoba[], int id, int liczba_osob )
+{
+	int i=0;
+	for (i=id; i<(liczba_osob); i++)
+	{
+		strcpy(osoba[i-1].imie, osoba[i].imie);
+		strcpy(osoba[i-1].nazwisko, osoba[i].nazwisko);
+		osoba[i-1].wiek = osoba[i].wiek;
+		osoba[i-1].zarobki = osoba[i].zarobki;
+	}
+	return 0;
+}
+
+/*int compareNazwisko(const void *a, const void *b)
+{
+	const OSOBA *ptra = a;
+	const OSOBA *ptrb = b;
+	if ( strcmp(ptra->nazwisko,ptrb->nazwisko) > 0)
+		return 1;
+	else if ( strcmp(ptra->nazwisko, ptrb->nazwisko) < 0)
+		return -1;
+	else
+		return 0;
+}
+
+int compareImie(const void *a, const void *b)
+{
+	const OSOBA *ptra = a;
+	const OSOBA *ptrb = b;
+	if ( strcmp(ptra->imie,ptrb->imie) > 0)
+		return 1;
+	else if ( strcmp(ptra->imie, ptrb->imie) < 0)
+		return -1;
+	else
+		return 0;
+}
+int compareWiek(const void *a, const void *b)
+{
+	const OSOBA *ptra = a;
+	const OSOBA *ptrb = b;
+	if ( ptra->wiek > ptrb->wiek)
+		return 1;
+	else if ( ptra->wiek < ptrb->wiek)
+		return -1;
+	else
+		return 0;
+}
+int compareZarobki(const void *a, const void *b)
+{
+	#if DEBUG
+	printf("Porównuję zarobki!\n");
+	#endif
+	const OSOBA *ptra = a;
+	const OSOBA *ptrb = b;
+	if ( ptra->zarobki > ptrb->zarobki)
+		{
+		#if DEBUG
+		printf("%s i %s\n",a,b);
+		printf("%g>%g\n",ptra->zarobki, ptrb->zarobki);
+		#endif
+		return 1;
+		}
+		
+	else if ( ptra->zarobki < ptrb->zarobki )
+		{
+			#if DEBUG
+			printf("%s i %s\n",a,b);
+			printf("%g<%g\n",ptra->zarobki, ptrb->zarobki);
+			#endif
+			return -1;
+		}
+		
+	else
+		return 0;
+}
 
 int compareNIWZ(const void *a, const void *b)
 {
-	int wyrocznia=0;
-	wyrocznia = strcmp(a,b);
-	if (wyrocznia)
-		return 1;
-	else if (wyrocznia == -1)
-		return -1;
-	else 
-		compareINWZ(a,b);
-	return -2;
+	if (compareNazwisko(a,b) == 0)
+		if (compareImie(a,b) == 0)
+			if (compareWiek(a,b) == 0)
+				compareZarobki(a,b);
+			else
+				return compareWiek(a,b);
+		else 
+			return compareImie(a,b);
+	else
+		return compareNazwisko(a,b);
+	return 100;
 }
-
 int compareINWZ(const void *a, const void *b)
 {
-	return -2;
-}
-int compareWNIZ(const void *a, const void *b)
-{
-	return -2;
-}
-int compareZNIW(const void *a, const void *b)
-{
-	return -2;
+	if (compareImie(a,b) == 0)
+		if (compareNazwisko(a,b) == 0)
+			if (compareWiek(a,b) == 0)
+				compareZarobki(a,b);
+			else
+				return compareWiek(a,b);
+		else 
+			return compareNazwisko(a,b);
+	else
+		return compareImie(a,b);
+	return 100;
 }
 
-int main()
+int compareWNIZ(const void *a, const void *b)
+{
+	if (compareWiek(a,b) == 0)
+		if (compareNazwisko(a,b) == 0)
+			if (compareImie(a,b) == 0)
+				compareZarobki(a,b);
+			else
+				return compareImie(a,b);
+		else 
+			return compareNazwisko(a,b);
+	else
+		return compareWiek(a,b);
+	return 100;
+}
+
+int compareZNIW(const void *a, const void *b)
+{
+	if (compareZarobki(a,b) == 0)
+		if (compareNazwisko(a,b) == 0)
+			if (compareImie(a,b) == 0)
+				compareWiek(a,b);
+			else
+				return compareImie(a,b);
+		else 
+			return compareNazwisko(a,b);
+	else
+		return compareZarobki(a,b);
+	return 100;
+}
+*/
+int main(int argc, char *argv[])
 {
 	OSOBA osoba[30];
 	int liczba_osob;
+	if (argc == 1)
+		printf("Przechodzę do menu");
+	else if ( !strcmp(argv[1],"--help") || !strcmp(argv[1],"--h") || !strcmp(argv[1],"help") )
+	{
+		printf("Prosty program przetwarzający dane osób.");
+		printf("\n");
+		sleep(1);
+	}
+	else
+	{
+/* program tu się wykrzacza jeśli nie znajdzie takiego pliku */		
+		liczba_osob = wczytaj_osoby(argv[1], osoba);
+		printf("Wczytano dane %d osób", liczba_osob);
+		printf("\n");
+		sleep(1);
+	} 
+
 	while (1)
 	{
 		int wybor;
+
 		char *wejscie = NULL;
 		char nazwa_pliku[25];
 		size_t len = 0;
 		printf("\e[1;1H\e[2J"); /* clears the screen */
-	/* Wyświetla menu główne */
+/* Wyświetla menu główne */
 		printf("\t PROGRAM PRZETWARZAJACY DANE \n");
 		horizontal();
 		printf("\t\t MENU GŁÓWNE\t\t\n");
@@ -104,33 +234,36 @@ int main()
 		printf("\t3. SORTUJ DANE\n\t4. DODAJ OSOBĘ DO BAZY\n\t5. USUŃ OSOBĘ Z BAZY\n\t6. ZAPISZ DANE DO PLIKU\n\t7. KONIEC PROGRAMU\n");
 		horizontal();
 		printf("\n\nTWÓJ WYBÓR: ");
-	/* Pobiera wybór i konwertuje */ 
+/* Pobiera wybór i konwertuje */ 
 		getline(&wejscie, &len, stdin);
 		wybor = atoi(wejscie);
 		#if DEBUG
 		printf("Wybor= %d\n", wybor);
 		#endif
-	/* Menu główne */
+
+/* Menu główne */
 			switch (wybor)
 		{
-		/* Wczytywanie pliku. Error-prone jak zły format? */
+/* Wczytywanie pliku. Error-prone jak zły format? */
 			case 1:
-				printf("Podaj nazwę pliku z którego dane wczytać\t");
+				printf("Podaj nazwę pliku z którego dane wczytać:  ");
 				scanf("%s", nazwa_pliku);
 				#if DEBUG
 				printf("\n\t%s\n", nazwa_pliku);
 				#endif
 				liczba_osob = wczytaj_osoby(nazwa_pliku, osoba);
-				printf("Pomyślnie wczytano dane %d osób", liczba_osob);
-				printf("\n");
-				sleep(3);
+				printf("Pomyślnie wczytano dane %d osób\n", liczba_osob);
+				printf("Wciśnij ENTER aby wrócić do MENU\n");
+				getline(&wejscie,&len,stdin);
+				getline(&wejscie,&len,stdin);
 				break;
-		/* Wypisywanie danych. Zmienić na enter żeby wrócić do menu? */
+/* Wypisywanie danych. Zmienić na enter żeby wrócić do menu? */
 			case 2:
 				wypisz_dane(osoba, liczba_osob);
-				sleep(5);
+				printf("Wciśnij ENTER aby wrócić do MENU\n");
+				getline(&wejscie,&len,stdin);
 				break;
-		/*Sortowanie */
+/*Sortowanie */
 			case 3:
 				printf("Jak posortować dane?\n");
 				printf("\t1. w/g NIWZ\n\t2. w/g INWZ\n\t3. w/g WNIZ\n\t4. w/g ZNIW\nDOKONAJ WYBORU: ");
@@ -139,51 +272,76 @@ int main()
 				switch (wybor)
 				{
 					case 1:
-						qsort(osoba->nazwisko, liczba_osob, sizeof(osoba->nazwisko), compareNIWZ);
+						qsort(osoba, liczba_osob, sizeof(osoba[0]), compareNIWZ);
+						printf("Posortowano dane\nWciśnij ENTER aby wrócić do MENU\n");
+						getline(&wejscie,&len,stdin);
 						break;
 					case 2:
+						qsort(osoba, liczba_osob, sizeof(osoba[0]), compareINWZ);
+						printf("Posortowano dane\nWciśnij ENTER aby wrócić do MENU\n");
+						getline(&wejscie,&len,stdin);
 						break;
 					case 3:
+						qsort(osoba, liczba_osob, sizeof(osoba[0]), compareWNIZ);
+						printf("Posortowano dane\nWciśnij ENTER aby wrócić do MENU\n");
+						getline(&wejscie,&len,stdin);
 						break;
 					case 4:
+						qsort(osoba, liczba_osob, sizeof(osoba[0]), compareZNIW);
+						printf("Posortowano dane\nWciśnij ENTER aby wrócić do MENU\n");
+						getline(&wejscie,&len,stdin);
 						break;
 					default:
 						break;
 				}
 				break;
 			case 4:
-/* nie działa zbyt ładnie -- doda wszystko co wpiszesz -- WON'TFIX? */				
+/* Dodawanie do bazy - nie działa zbyt ładnie -- doda wszystko co wpiszesz -- WON'TFIX? */				
 				printf("Dodaje osobę na końcu tabeli");
 				printf("Podaj dane w formacie:\nImie\tNazwisko\tWiek\tZarobki\n");
 				printf("char[]\tchar[]\t\tint\tdouble\n");
 				getline(&wejscie,&len,stdin);
-				if (sscanf(wejscie, "%s %s %d %lf", osoba[liczba_osob].imie, osoba[liczba_osob].nazwisko, &osoba[liczba_osob].wiek, &osoba[liczba_osob].zarobki) == 4){
+				if (sscanf(wejscie, "%s %s %d %lf", osoba[liczba_osob].imie, osoba[liczba_osob].nazwisko, &osoba[liczba_osob].wiek, &osoba[liczba_osob].zarobki) == 4)
+				{
 					liczba_osob++;
 					printf("Dodano jako osobę nr. %d: %s %s %d %f", liczba_osob, osoba[liczba_osob-1].imie, osoba[liczba_osob-1].nazwisko, osoba[liczba_osob-1].wiek, osoba[liczba_osob-1].zarobki);
 					printf("\n");
 				}
 				else 
+				{
 					printf("Błąd! Nie podano odpowiedniej liczby danych!");
 					printf("/n");
-				sleep(2);
+				}
+				printf("Wciśnij ENTER aby wrócić do MENU\n");
+				getline(&wejscie,&len,stdin);
 				break;
-			
+/* Usuwanie z bazy */			
 			case 5:
-				/*sth*/
+				printf("Podaj numer identyfikacyjny Osoby której rekord usunąć z bazy: ");
+				getline(&wejscie,&len,stdin);
+				usun_osobe(osoba, atoi(wejscie), liczba_osob);
+				liczba_osob = liczba_osob-1;
+				printf("Pomyślnie usunięto rekod z bazy\n");
+				printf("Wciśnij ENTER aby wrócić do MENU\n");
+				getline(&wejscie,&len,stdin);
 				break;
-			
+/* Zapis danych do pliku */			
 			case 6:
 				printf("Podaj nazwę pliku w którym zapisać dane:");
-				getline(&wejscie,&len-1,stdin); /* O co chodzi z tym lengthem?? !! */
+				getline(&wejscie,&len,stdin); 
+				wejscie[strlen(wejscie)-1] = '\0'; /*This dirty hacks removes the new lin char */
 				zapisz_osoby(wejscie, osoba, liczba_osob);
-				printf("Pomyślnie zapisano do pliku: %s", wejscie);
-				printf("\n");
-				sleep(3);
+				printf("Pomyślnie zapisano do pliku: %s\n", wejscie);
+				printf("Wciśnij ENTER aby wrócić do MENU\n");
+				getline(&wejscie,&len,stdin);
 				break;
+/* Zakończenie programu */				
 			case 7:
 				return 0;
 			default:
 				printf("Nie zrozumiano Twojego wyboru :(\nPodaj cyfre z zakresu MENU:\n");
+					printf("\n");
+					sleep(2);
 				break;
 		}
 	}
