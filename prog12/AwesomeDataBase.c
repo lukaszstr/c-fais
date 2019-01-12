@@ -6,10 +6,10 @@
 int main(int argc, char *argv[])
 {
 /* Kilka deklaracji */
-	OSOBA osoba[30];
-	int liczba_osob;
+	int liczba_osob, databSize=30;
 	char *wejscie = NULL;
 	size_t len = 0;
+	OSOBA osoba[databSize];
 /* Sprawdza czy zostały podane jakieś argumenty wywołania programu */
 	if (argc == 1)
 		printf("Przechodzę do menu");
@@ -21,6 +21,23 @@ int main(int argc, char *argv[])
 		printf("Wciśnij ENTER aby wrócić do MENU\n");
 		getline(&wejscie,&len,stdin);
 	}
+	else if ( strcmp(argv[1],"-d") || strcmp(argv[1],"--database_size"))
+		{
+		if (atoi(argv[2]) != 0)
+			{
+			databSize=atoi(argv[2]);
+			printf("Zmieniono początkowy rozmiar bazy danych do %d",databSize);
+			OSOBA osoba[databSize];
+			printf("\n");
+			sleep(2);
+			}
+		else
+			{
+			printf("Konwersja nie powiodła się, sprawdź wywołując program z flagą --help");
+			printf("\n");
+			sleep(3);	
+			}
+		}
 	else
 	{
 		liczba_osob = wczytaj_osoby(argv[1], osoba);
@@ -30,7 +47,7 @@ int main(int argc, char *argv[])
 			printf("Wczytano dane %d osób", liczba_osob);
 		printf("\n");
 		sleep(2);
-	} 
+	}
 /* Wyświetla menu główne */
 	while (1)
 	{
