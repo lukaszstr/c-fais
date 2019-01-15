@@ -6,10 +6,10 @@
 int main(int argc, char *argv[])
 {
 /* Kilka deklaracji */
-	int liczba_osob;
+	int liczba_osob=0;
 	char *wejscie = NULL; 
 	size_t len = 0;
-	OSOBA *osoby[DEF_DATAB_SIZE];
+	OSOBA *osoby = malloc (30 * sizeof(OSOBA));
 /* Sprawdza czy zostały podane jakieś argumenty wywołania programu */
 	if (argc == 1)
 		printf("Przechodzę do menu");
@@ -24,14 +24,14 @@ int main(int argc, char *argv[])
 	else
 	{
 		liczba_osob = line_counter(argv[1]);
-		*osoby = malloc(liczba_osob * sizeof(OSOBA));
+		osoby = realloc(osoby, (liczba_osob+1) * sizeof(OSOBA));
 		if (osoby == NULL)
 		{
 			printf("Error. Malloc nie dał rady zalokować pamięci \n");
 		}
 		else
 		{
-		liczba_osob = wczytaj_osoby(argv[1], *osoby, &liczba_osob);
+		liczba_osob = wczytaj_osoby(argv[1], osoby, &liczba_osob);
 		#if DEBUG
 		printf("%d\n",liczba_osob);
 		#endif
@@ -75,14 +75,14 @@ int main(int argc, char *argv[])
 				#endif
 				wejscie[strlen(wejscie)-1] = '\0';
 				liczba_osob = line_counter(wejscie);
-				*osoby = malloc(liczba_osob * sizeof(OSOBA));
+				osoby = realloc(osoby, (liczba_osob+1) * sizeof(OSOBA));
 				if (osoby == NULL)
 				{
 					printf("Error. Malloc nie dał rady zalokować pamięci \n");
 				}
 				else
 				{
-				liczba_osob = wczytaj_osoby(wejscie, *osoby, &liczba_osob);
+				liczba_osob = wczytaj_osoby(wejscie, osoby, &liczba_osob);
 				if (liczba_osob == 0)
 					printf("Nie znaleziono pliku %s\n", wejscie);
 				else
@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
 				
 /* Wypisywanie danych */
 			case 2:
-				wypisz_dane(*osoby, liczba_osob);
+				wypisz_dane(osoby, liczba_osob);
 				printf("Wciśnij ENTER aby wrócić do MENU\n");
 				getline(&wejscie,&len,stdin);
 				break;
@@ -107,22 +107,22 @@ int main(int argc, char *argv[])
 				switch (wybor)
 				{
 					case 1:
-						qsort(*osoby, liczba_osob, sizeof(OSOBA), compareNIWZ);
+						qsort(osoby, liczba_osob, sizeof(OSOBA), compareNIWZ);
 						printf("Posortowano dane\nWciśnij ENTER aby wrócić do MENU\n");
 						getline(&wejscie,&len,stdin);
 						break;
 					case 2:
-						qsort(*osoby, liczba_osob, sizeof(OSOBA), compareINWZ);
+						qsort(osoby, liczba_osob, sizeof(OSOBA), compareINWZ);
 						printf("Posortowano dane\nWciśnij ENTER aby wrócić do MENU\n");
 						getline(&wejscie,&len,stdin);
 						break;
 					case 3:
-						qsort(*osoby, liczba_osob, sizeof(OSOBA), compareWNIZ);
+						qsort(osoby, liczba_osob, sizeof(OSOBA), compareWNIZ);
 						printf("Posortowano dane\nWciśnij ENTER aby wrócić do MENU\n");
 						getline(&wejscie,&len,stdin);
 						break;
 					case 4:
-						qsort(*osoby, liczba_osob, sizeof(OSOBA), compareZNIW);
+						qsort(osoby, liczba_osob, sizeof(OSOBA), compareZNIW);
 						printf("Posortowano dane\nWciśnij ENTER aby wrócić do MENU\n");
 						getline(&wejscie,&len,stdin);
 						break;
@@ -136,10 +136,17 @@ int main(int argc, char *argv[])
 				printf("Podaj dane w formacie:\nImie\tNazwisko\tWiek\tZarobki\n");
 				printf("char[]\tchar[]\t\tint\tdouble\n");
 				getline(&wejscie,&len,stdin);
-				if (sscanf(wejscie, "%s %s %d %lf", osoby[liczba_osob]->imie, osoby[liczba_osob]->nazwisko, &osoby[liczba_osob]->wiek, &osoby[liczba_osob]->zarobki) == 4)
+				osoby = realloc(osoby, (liczba_osob+1)*sizeof(OSOBA));
+				if (osoby == NULL)
+				{
+					printf("Error. Malloc nie dał rady zalokować pamięci \n");
+				}
+				else
+				{
+				if (sscanf(wejscie, "%s %s %d %lf", osoby[liczba_osob].imie, osoby[liczba_osob].nazwisko, &osoby[liczba_osob].wiek, &osoby[liczba_osob].zarobki) == 4)
 				{
 					liczba_osob++;
-					printf("Dodano jako osobę nr. %d: %s %s %d %f", liczba_osob, osoby[liczba_osob-1]->imie, osoby[liczba_osob-1]->nazwisko, osoby[liczba_osob-1]->wiek, osoby[liczba_osob-1]->zarobki);
+					printf("Dodano jako osobę nr. %d: %s %s %d %g", liczba_osob, osoby[liczba_osob-1].imie, osoby[liczba_osob-1].nazwisko, osoby[liczba_osob-1].wiek, osoby[liczba_osob-1].zarobki);
 					printf("\n");
 				}
 				else 
@@ -149,29 +156,45 @@ int main(int argc, char *argv[])
 				}
 				printf("Wciśnij ENTER aby wrócić do MENU\n");
 				getline(&wejscie,&len,stdin);
+				}
 				break;
 /* Usuwanie z bazy */			
 			case 5:
 				printf("Podaj numer identyfikacyjny Osoby której rekord usunąć z bazy: ");
 				getline(&wejscie,&len,stdin);
-				usun_osobe(*osoby, atoi(wejscie), liczba_osob);
+				if (atoi(wejscie)>0 && atoi(wejscie)<liczba_osob+1)
+				{
+					printf("Usuwana osoba: %s %s %d %g\n",osoby[atoi(wejscie)-1].imie, osoby[atoi(wejscie)-1].nazwisko, osoby[atoi(wejscie)-1].wiek, osoby[atoi(wejscie)-1].zarobki);usun_osobe(osoby, atoi(wejscie), liczba_osob);
 				liczba_osob = liczba_osob-1;
+				osoby = realloc(osoby, (liczba_osob+1)*sizeof(OSOBA));
+				if (osoby == NULL)
+				{
+					printf("Error. Malloc nie dał rady zalokować pamięci \n");
+				}
+				else
+				{
 				printf("Pomyślnie usunięto rekod z bazy\n");
+				}
+				}
+				else
+					printf("Nieprawidłowy wybór, podaj liczbę całkowitą z zakresu liczby danych w tabeli\n");
 				printf("Wciśnij ENTER aby wrócić do MENU\n");
 				getline(&wejscie,&len,stdin);
+				
 				break;
 /* Zapis danych do pliku */			
 			case 6:
 				printf("Podaj nazwę pliku w którym zapisać dane:  ");
 				getline(&wejscie,&len,stdin); 
 				wejscie[strlen(wejscie)-1] = '\0'; /*This dirty hacks removes the new lin char */
-				zapisz_osoby(wejscie, *osoby, liczba_osob);
+				zapisz_osoby(wejscie, osoby, liczba_osob);
 				printf("Pomyślnie zapisano do pliku: %s\n", wejscie);
 				printf("Wciśnij ENTER aby wrócić do MENU\n");
 				getline(&wejscie,&len,stdin);
 				break;
 /* Zakończenie programu */				
 			case 7:
+				free(osoby);
 				return 0;
 			default:
 				printf("Nie zrozumiano Twojego wyboru :(\nPodaj cyfre z zakresu MENU:\n");
@@ -184,8 +207,3 @@ int main(int argc, char *argv[])
 	
 	return 0;
 }
-
-
-/* Bug jak niezainjowana baza danych to pokazuje gibberish 
-	Niepodanie nazwy pliku w case 1 crashuje 
-	*/
