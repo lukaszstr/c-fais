@@ -29,11 +29,27 @@ int compareWiek(const void *a, const void *b)
 	const OSOBA *ptra = a;
 	const OSOBA *ptrb = b;
 	if ( ptra->wiek > ptrb->wiek)
+	{
+		#if DEBUG
+		printf("%d > %d\n",ptra,ptrb)
+		#endif
 		return 1;
+	}
+		
 	else if ( ptra->wiek < ptrb->wiek)
+	{
+		#if DEBUG
+		printf("%d < %d\n",ptra,ptrb)
+		#endif
 		return -1;
+	}
 	else
+	{
+		#if DEBUG
+		printf("%d = %d\n",ptra,ptrb)
+		#endif
 		return 0;
+	}
 }
 int compareZarobki(const void *a, const void *b)
 {
@@ -126,45 +142,45 @@ int compareZNIW(const void *a, const void *b)
 int wczytaj_osoby(char *plik, OSOBA osoby[], int *liczba_osob)
 {
 	int i=0;
-	if (osoby == NULL)
-	{
-		printf("Error. Malloc nie dał rady zalokować pamięci \n");
-	}
-	else
-	{
-		FILE *fin;
+	FILE *fin;
 	fin = fopen(plik, "r");
-	
 	if (fin != NULL) 
 		{
 			while(fscanf(fin, "%s %s %d %lf", osoby[i].imie, osoby[i].nazwisko, &osoby[i].wiek, &osoby[i].zarobki)==4)
 				{
 					#if DEBUG
-					#printf("%s %s %d %lf\n", osoby[i].imie, osoby[i].nazwisko, &osoby[i].wiek, &osoby[i].zarobki);
+					printf("%s %s %d %lf\n", osoby[i].imie, osoby[i].nazwisko, &osoby[i].wiek, &osoby[i].zarobki);
 					#endif
 					i++;
 				}
 			fclose(fin);
+			return i;
 		}
-	}
 	
-	return i;
+	return -1;
 }
 
 int line_counter(char *filename)
 {
 	FILE* fin = fopen(filename, "r");
 	int znak, liczba_lini = 0;
-	do
+	if (fin == NULL)
 	{
+		return -1;
+	}
+	else
+	{
+		do
+		{
 	    znak = fgetc(fin);
 	    if(znak == '\n')
 	        liczba_lini++;
-	}	while (znak != EOF);
+		}	while (znak != EOF);
 
 	if(znak != '\n' && liczba_lini != 0)
 	    liczba_lini++;
 	fclose(fin);
+	}
 	return liczba_lini-1;
 }
 
@@ -178,7 +194,7 @@ int zapisz_osoby(char *plik, OSOBA osoba[], int liczba_imion)
 		{
 			fprintf(fout, "%s %s %d %lf\n", osoba[i].imie, osoba[i].nazwisko, osoba[i].wiek, osoba[i].zarobki);
 			#if DEBUG
-			#printf("%s %s %d %lf\n", osoba[i].imie, osoba[i].nazwisko, osoba[i].wiek, osoba[i].zarobki);
+			printf("%s %s %d %lf\n", osoba[i].imie, osoba[i].nazwisko, osoba[i].wiek, osoba[i].zarobki);
 			#endif
 		}
 	}

@@ -6,11 +6,10 @@
 int main(int argc, char *argv[])
 {
 /* Kilka deklaracji */
-	int liczba_osob, databSize=30;
-	char *wejscie = NULL;
+	int liczba_osob;
+	char *wejscie = NULL; 
 	size_t len = 0;
-	OSOBA osoba[databSize];
-	OSOBA *osoby[databSize];
+	OSOBA *osoby[DEF_DATAB_SIZE];
 /* Sprawdza czy zostały podane jakieś argumenty wywołania programu */
 	if (argc == 1)
 		printf("Przechodzę do menu");
@@ -22,26 +21,21 @@ int main(int argc, char *argv[])
 		printf("Wciśnij ENTER aby wrócić do MENU\n");
 		getline(&wejscie,&len,stdin);
 	}
-	else if ( strcmp(argv[1],"-d") || strcmp(argv[1],"--database_size"))
-		{
-		if (atoi(argv[2]) != 0)
-			{
-			databSize=atoi(argv[2]);
-			printf("Zmieniono początkowy rozmiar bazy danych do %d",databSize);
-			OSOBA osoba[databSize];
-			printf("\n");
-			sleep(2);
-			}
-		else
-			{
-			printf("Konwersja nie powiodła się, sprawdź wywołując program z flagą --help");
-			printf("\n");
-			sleep(3);	
-			}
-		}
 	else
 	{
-		liczba_osob = wczytaj_osoby(argv[1], osoba, &liczba_osob);
+		liczba_osob = line_counter(argv[1]);
+		*osoby = malloc(liczba_osob * sizeof(OSOBA));
+		if (osoby == NULL)
+		{
+			printf("Error. Malloc nie dał rady zalokować pamięci \n");
+		}
+		else
+		{
+		liczba_osob = wczytaj_osoby(argv[1], *osoby, &liczba_osob);
+		#if DEBUG
+		printf("%d\n",liczba_osob);
+		#endif
+		}
 		if (liczba_osob == 0)
 			printf("Nie znaleziono pliku %s",argv[1]);
 		else
@@ -113,22 +107,22 @@ int main(int argc, char *argv[])
 				switch (wybor)
 				{
 					case 1:
-						qsort(osoba, liczba_osob, sizeof(osoba[0]), compareNIWZ);
+						qsort(*osoby, liczba_osob, sizeof(OSOBA), compareNIWZ);
 						printf("Posortowano dane\nWciśnij ENTER aby wrócić do MENU\n");
 						getline(&wejscie,&len,stdin);
 						break;
 					case 2:
-						qsort(osoba, liczba_osob, sizeof(osoba[0]), compareINWZ);
+						qsort(*osoby, liczba_osob, sizeof(OSOBA), compareINWZ);
 						printf("Posortowano dane\nWciśnij ENTER aby wrócić do MENU\n");
 						getline(&wejscie,&len,stdin);
 						break;
 					case 3:
-						qsort(osoba, liczba_osob, sizeof(osoba[0]), compareWNIZ);
+						qsort(*osoby, liczba_osob, sizeof(OSOBA), compareWNIZ);
 						printf("Posortowano dane\nWciśnij ENTER aby wrócić do MENU\n");
 						getline(&wejscie,&len,stdin);
 						break;
 					case 4:
-						qsort(osoba, liczba_osob, sizeof(osoba[0]), compareZNIW);
+						qsort(*osoby, liczba_osob, sizeof(OSOBA), compareZNIW);
 						printf("Posortowano dane\nWciśnij ENTER aby wrócić do MENU\n");
 						getline(&wejscie,&len,stdin);
 						break;
@@ -142,10 +136,10 @@ int main(int argc, char *argv[])
 				printf("Podaj dane w formacie:\nImie\tNazwisko\tWiek\tZarobki\n");
 				printf("char[]\tchar[]\t\tint\tdouble\n");
 				getline(&wejscie,&len,stdin);
-				if (sscanf(wejscie, "%s %s %d %lf", osoba[liczba_osob].imie, osoba[liczba_osob].nazwisko, &osoba[liczba_osob].wiek, &osoba[liczba_osob].zarobki) == 4)
+				if (sscanf(wejscie, "%s %s %d %lf", osoby[liczba_osob]->imie, osoby[liczba_osob]->nazwisko, &osoby[liczba_osob]->wiek, &osoby[liczba_osob]->zarobki) == 4)
 				{
 					liczba_osob++;
-					printf("Dodano jako osobę nr. %d: %s %s %d %f", liczba_osob, osoba[liczba_osob-1].imie, osoba[liczba_osob-1].nazwisko, osoba[liczba_osob-1].wiek, osoba[liczba_osob-1].zarobki);
+					printf("Dodano jako osobę nr. %d: %s %s %d %f", liczba_osob, osoby[liczba_osob-1]->imie, osoby[liczba_osob-1]->nazwisko, osoby[liczba_osob-1]->wiek, osoby[liczba_osob-1]->zarobki);
 					printf("\n");
 				}
 				else 
@@ -160,7 +154,7 @@ int main(int argc, char *argv[])
 			case 5:
 				printf("Podaj numer identyfikacyjny Osoby której rekord usunąć z bazy: ");
 				getline(&wejscie,&len,stdin);
-				usun_osobe(osoba, atoi(wejscie), liczba_osob);
+				usun_osobe(*osoby, atoi(wejscie), liczba_osob);
 				liczba_osob = liczba_osob-1;
 				printf("Pomyślnie usunięto rekod z bazy\n");
 				printf("Wciśnij ENTER aby wrócić do MENU\n");
@@ -178,7 +172,6 @@ int main(int argc, char *argv[])
 				break;
 /* Zakończenie programu */				
 			case 7:
-				printf("osoba[0] %s %s %d %lf", osoba[0].imie, osoba[0].nazwisko, osoba[0].wiek, osoba[0].zarobki);
 				return 0;
 			default:
 				printf("Nie zrozumiano Twojego wyboru :(\nPodaj cyfre z zakresu MENU:\n");

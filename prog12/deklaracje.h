@@ -4,8 +4,10 @@
 #include <string.h>
 #include <unistd.h>
 
-#define IMIE_LEN 20
-#define NAZWISKO_LEN 20
+#define IMIE_LEN 30
+#define NAZWISKO_LEN 30
+#define DEF_DATAB_SIZE 30
+#define DEBUG 0
 
 typedef struct {
 		char imie[IMIE_LEN];
