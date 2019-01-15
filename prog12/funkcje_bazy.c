@@ -123,17 +123,49 @@ int compareZNIW(const void *a, const void *b)
 	return 100;
 }
 
-int wczytaj_osoby(char *plik, OSOBA osoba[])
+int wczytaj_osoby(char *plik, OSOBA osoby[], int *liczba_osob)
 {
-	FILE *fin;
-	fin = fopen(plik, "r");
 	int i=0;
-	if (fin != NULL) 
+	if (osoby == NULL)
 	{
-		while(fscanf(fin, "%s %s %d %lf", osoba[i].imie, osoba[i].nazwisko, &osoba[i].wiek, &osoba[i].zarobki)==4)i++;
-		fclose(fin);
+		printf("Error. Malloc nie dał rady zalokować pamięci \n");
 	}
+	else
+	{
+		FILE *fin;
+	fin = fopen(plik, "r");
+	
+	if (fin != NULL) 
+		{
+			while(fscanf(fin, "%s %s %d %lf", osoby[i].imie, osoby[i].nazwisko, &osoby[i].wiek, &osoby[i].zarobki)==4)
+				{
+					#if DEBUG
+					#printf("%s %s %d %lf\n", osoby[i].imie, osoby[i].nazwisko, &osoby[i].wiek, &osoby[i].zarobki);
+					#endif
+					i++;
+				}
+			fclose(fin);
+		}
+	}
+	
 	return i;
+}
+
+int line_counter(char *filename)
+{
+	FILE* fin = fopen(filename, "r");
+	int znak, liczba_lini = 0;
+	do
+	{
+	    znak = fgetc(fin);
+	    if(znak == '\n')
+	        liczba_lini++;
+	}	while (znak != EOF);
+
+	if(znak != '\n' && liczba_lini != 0)
+	    liczba_lini++;
+	fclose(fin);
+	return liczba_lini-1;
 }
 
 int zapisz_osoby(char *plik, OSOBA osoba[], int liczba_imion)
@@ -145,6 +177,9 @@ int zapisz_osoby(char *plik, OSOBA osoba[], int liczba_imion)
 		for(i=0;i<liczba_imion;i++)
 		{
 			fprintf(fout, "%s %s %d %lf\n", osoba[i].imie, osoba[i].nazwisko, osoba[i].wiek, osoba[i].zarobki);
+			#if DEBUG
+			#printf("%s %s %d %lf\n", osoba[i].imie, osoba[i].nazwisko, osoba[i].wiek, osoba[i].zarobki);
+			#endif
 		}
 	}
 	else

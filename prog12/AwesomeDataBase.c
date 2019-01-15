@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
 	char *wejscie = NULL;
 	size_t len = 0;
 	OSOBA osoba[databSize];
+	OSOBA *osoby[databSize];
 /* Sprawdza czy zostały podane jakieś argumenty wywołania programu */
 	if (argc == 1)
 		printf("Przechodzę do menu");
@@ -40,7 +41,7 @@ int main(int argc, char *argv[])
 		}
 	else
 	{
-		liczba_osob = wczytaj_osoby(argv[1], osoba);
+		liczba_osob = wczytaj_osoby(argv[1], osoba, &liczba_osob);
 		if (liczba_osob == 0)
 			printf("Nie znaleziono pliku %s",argv[1]);
 		else
@@ -79,17 +80,27 @@ int main(int argc, char *argv[])
 				printf("\n\t%s\n", wejscie);
 				#endif
 				wejscie[strlen(wejscie)-1] = '\0';
-				liczba_osob = wczytaj_osoby(wejscie, osoba);
+				liczba_osob = line_counter(wejscie);
+				*osoby = malloc(liczba_osob * sizeof(OSOBA));
+				if (osoby == NULL)
+				{
+					printf("Error. Malloc nie dał rady zalokować pamięci \n");
+				}
+				else
+				{
+				liczba_osob = wczytaj_osoby(wejscie, *osoby, &liczba_osob);
 				if (liczba_osob == 0)
 					printf("Nie znaleziono pliku %s\n", wejscie);
 				else
 					printf("Pomyślnie wczytano dane %d osób\n", liczba_osob);
 				printf("Wciśnij ENTER aby wrócić do MENU\n");
 				getline(&wejscie,&len,stdin);
+				}
 				break;
+				
 /* Wypisywanie danych */
 			case 2:
-				wypisz_dane(osoba, liczba_osob);
+				wypisz_dane(*osoby, liczba_osob);
 				printf("Wciśnij ENTER aby wrócić do MENU\n");
 				getline(&wejscie,&len,stdin);
 				break;
@@ -160,13 +171,14 @@ int main(int argc, char *argv[])
 				printf("Podaj nazwę pliku w którym zapisać dane:  ");
 				getline(&wejscie,&len,stdin); 
 				wejscie[strlen(wejscie)-1] = '\0'; /*This dirty hacks removes the new lin char */
-				zapisz_osoby(wejscie, osoba, liczba_osob);
+				zapisz_osoby(wejscie, *osoby, liczba_osob);
 				printf("Pomyślnie zapisano do pliku: %s\n", wejscie);
 				printf("Wciśnij ENTER aby wrócić do MENU\n");
 				getline(&wejscie,&len,stdin);
 				break;
 /* Zakończenie programu */				
 			case 7:
+				printf("osoba[0] %s %s %d %lf", osoba[0].imie, osoba[0].nazwisko, osoba[0].wiek, osoba[0].zarobki);
 				return 0;
 			default:
 				printf("Nie zrozumiano Twojego wyboru :(\nPodaj cyfre z zakresu MENU:\n");
@@ -179,3 +191,8 @@ int main(int argc, char *argv[])
 	
 	return 0;
 }
+
+
+/* Bug jak niezainjowana baza danych to pokazuje gibberish 
+	Niepodanie nazwy pliku w case 1 crashuje 
+	*/
